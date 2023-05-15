@@ -1,0 +1,4098 @@
+:root {
+    --chosenHue: 240;
+    --saturationBase: 30%;
+    --saturationModifier: 5%;
+    --lightnessBase: 30%;
+    --lightnessModifer: 10%;
+    
+    --primaryCol: hsl(var(--chosenHue), var(--saturationBase), var(--lightnessBase));
+
+    --emphasizedPrimaryCol: hsl(var(--chosenHue), calc(var(--saturationBase) + var(--saturationModifier)), 
+        calc(var(--lightnessBase) + var(--lightnessModifer)));
+
+    --secondaryCol: hsl(var(--chosenHue), calc(var(--saturationBase) - var(--saturationModifier)),
+        calc(var(--lightnessBase) - var(--lightnessModifer)));
+
+    --tertiaryCol: hsl(var(--chosenHue), calc(var(--saturationBase) - calc(var(--saturationModifier) * 2)), 
+    calc(var(--lightnessBase) - calc(var(--lightnessModifer) * 2)));
+
+    --complimentaryCol: hsl(calc(var(--chosenHue) - 180), var(--saturationBase), var(--lightnessBase));
+
+    --emphasizedComplimentaryCol: hsl(calc(var(--chosenHue) - 180), calc(var(--saturationBase) + var(--saturationModifier)), 
+        calc(var(--lightnessBase) + var(--lightnessModifer)));
+
+    --deg45Col: hsl(calc(var(--chosenHue) + 45), var(--saturationBase), var(--lightnessBase));
+
+    --deg90Col: hsl(calc(var(--chosenHue) + 90), var(--saturationBase), var(--lightnessBase));
+
+    --neutralCol: hsl(220, 17%, 13.5%);
+    --optionGradient: linear-gradient(hsl(0, 0%, 55%), hsl(0, 0%, 45%));
+    --fullBoxShadow: inset .1vw .1vh black, inset -.1vw -.1vh black;
+
+    --primaryTextCol: hsl(0, 0%, 0%);
+    --secondaryTextCol: hsl(0, 0%, 75%);
+    
+    --turningCursor: url("/public/arrow_cursor.png") 32 24, auto;
+
+}
+
+@keyframes turn-it {
+    from {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+
+    to {
+        transform: rotate(180deg);
+        opacity: 0;
+    }
+}
+
+.TurningCursor {
+    background-image: url("/public/arrow_cursor.png");
+    width: 64px;
+    height: 49px;
+    animation: turn-it;
+    animation-duration: .75s;
+    animation-fill-mode: forwards;
+}
+
+
+
+.App {
+  text-align: center;
+  
+}
+
+html {
+    scrollbar-width: none;
+
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+
+
+@keyframes Phase-out{
+    1% {}
+
+
+    25% {opacity: 1;}
+
+    100% {
+        transform: translateX(60%);
+        height: 0vh;
+        width: 75%;
+        opacity: .1;}
+}
+
+
+@keyframes expand_from_circle {
+    from {
+        min-height: 0vh;
+        clip-path: circle(1% at 50% 50%);
+    }
+    to {
+        min-height: 20vh;
+        clip-path: circle(100% at 50% 50%);
+    }
+}
+
+
+
+#GenericPageRoot {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--neutralCol);
+
+}
+
+
+#NavigationBar {
+    background-image: linear-gradient(var(--emphasizedPrimaryCol), var(--secondaryCol) );
+    position: absolute;
+    top: 0vh;
+    width: 80%;
+    height: 7.5vh;
+    z-index: 100;
+    box-shadow: inset 0 -.1vh black, inset 0 0 .5vh 1vh var(--secondaryCol);
+
+}
+
+
+
+#HeavyDutyNavigationBar {
+    background-image: linear-gradient(var(--secondaryCol), var(--tertiaryCol) );
+    position: absolute;
+    top: 0vh;
+    right: 0%;
+    width: 20%;
+    height: 7.5vh;
+    z-index: 99;
+    box-shadow: inset 0 -.1vh black, inset 0 0 .25vh .5vh var(--emphasizedPrimaryCol);
+}
+
+#HeavyDutyOpenerContainer {
+    height: 7.5vh;
+}
+
+#HamburgerNavigationBar {
+    display: none;
+    position: absolute;
+    top: 0vh;
+    width: 100%;
+    height: 7.5vh;
+    background-color: grey;
+    z-index: 99;
+}
+
+#HamburgerNavigationBar[data-login_or_register_overlay_revealed="true"] {
+    display: none;
+}
+
+.HamburgerSpan {
+    position: absolute;
+    min-width: 75%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 19px;
+
+}
+
+
+
+#HamburgerNavigationCoreOptionsDropdown {
+    position: absolute;
+    left: 0vw;
+    width: 50%;
+    height: 100%;
+    background-image: var(--optionGradient);
+    box-shadow: inset 0 -.1vh black, inset 0 0 .25vh .5vh var(--secondaryCol);
+}
+
+
+
+#HamburgerNavigationCoreOptionsDropdown:hover .HamburgerNavigationOptionsContainer {
+    display: block;
+}
+
+.HamburgerNavigationOptionsContainer {
+    display: none;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    height: 100%;
+}
+
+#HamburgerNavigationAdditionalOptionsDropdown {
+    position: absolute;
+    top: 0vh;
+    right: 0vw;
+    width: 50%;
+    height: 100%;
+    background-image: var(--optionGradient);
+    box-shadow: inset 0 -.1vh black, inset 0 0 .25vh .5vh var(--emphasizedPrimaryCol);
+}
+
+#HamburgerNavigationAdditionalOptionsDropdown:hover .HamburgerNavigationOptionsContainer {
+    display: block;
+}
+
+.HamburgerNavigationDropdownDiv {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: var(--optionGradient);
+    box-shadow: var(--fullBoxShadow);
+}
+
+.HamburgerStroke {
+    position: relative;
+    right: 0vw;
+    margin-bottom: 9%;
+    height: 15%;
+    width: 100%;
+    background-color: black;
+}
+
+
+
+
+
+.NavigationSpan:hover {
+    color: hsl(calc(var(--chosenHue) - 180), 50%, 50%);
+    box-shadow: var(--fullBoxShadow), inset 0vh -2vh 1.5vh 0vh var(--emphasizedPrimaryCol);
+    transition: box-shadow .45s .15s, color .25s .15s;
+    cursor: pointer;
+
+}
+
+.HeavyDutyNavigationSpan:hover {
+    color: hsl(calc(var(--chosenHue) - 180), 50%, 50%);
+    box-shadow: var(--fullBoxShadow), inset 0vh -2vh 1.5vh 0vh var(--secondaryCol);
+    transition: box-shadow .45s .15s, color .25s .15s;
+    cursor: pointer;
+
+}
+
+#HamburgerNavigation {
+    display: none;
+    height: 10vh;
+    width: 90%;
+}
+
+#RegisterPageRoot {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(75, 75, 75);
+    background-image: url("/public/pretty_purple.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow-y: scroll;
+}
+
+#RegisterPageFormsContainer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 5vh;
+    height: 200vh;
+    gap: 5%;
+}
+
+#RegisterPageFormsContainer .RegisterPageInputSection {
+    flex: 1
+}
+
+.RegisterPageInputSection {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: 10%;
+    margin: none;
+    width: 80%;
+    margin-bottom: 5vh;
+    background-color: aliceblue;
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow);
+    padding-bottom: 1%;
+}
+
+.RegisterPageSectionIdentifier {
+    position: relative;
+    height: 20%;
+}
+
+.RegisterPageDescription {
+    position: relative;
+    height: 60%;
+}
+
+
+.RegisterPageInputSpan {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    font-size: 5vh;
+    transform: translate(-50%, -50%);
+
+}
+
+
+.RegisterPageInputField {
+    position: relative;
+    left: 5%;
+    height: 20%;
+    width: 90%;
+}
+
+#RegisterSubmitButton {
+    position: absolute;
+    left: 45%;
+    height: 10vh;
+    width: 10%;
+    margin-top: 2vh;
+    background-color: antiquewhite;
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow);
+}
+
+#RegisterButton[data-hidden="true"] {
+    display: none;
+}
+
+#ReturnButton[data-hidden="true"] {
+    display: none;
+}
+
+#LoginOrRegisterBar {
+    display: none;
+    position: absolute;
+    z-index: 101;
+    right: 0vw;
+    width: 50vw;
+    height: 80vh;
+}
+
+#LoginDescriptor {
+    top: 10vh;
+    left: 5%;
+    width: 85%;
+    border-radius: 1vw 1vw 0 0;
+    font-family: Lucidatypewriter;
+    box-shadow: inset .1vw .1vh black, inset -.1vw 0 black;
+}
+
+
+#RegisterForm {
+    position: absolute;
+    top: 0vh;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    background-image: conic-gradient(from -90deg, var(--emphasizedPrimaryCol), var(--secondaryCol));
+    border-radius: 0 0 2vw 2vw;
+    border-style: groove;
+    border-top-style: none;
+    border-left-style: none;
+    border-width: 1vw;
+    border-color: var(--emphasizedPrimaryCol);
+
+}
+
+#LoginForm {
+    position: absolute;
+    top: 0vh;
+    width: 50%;
+    height: 100%;
+    background-image: conic-gradient(from 90deg, var(--secondaryCol), var(--emphasizedPrimaryCol));
+    border-radius: 0 0 2vw 2vw;
+    border-style: groove;
+    border-top-style: none;
+    border-right-style: none;
+    border-width: 1vw;
+    border-color: var(--secondaryCol);
+
+}
+
+.LoginOrRegisterBarSpanLatch {
+    position: absolute;
+    top: 100%;
+    left: 0%;
+    width: 100%;
+    max-width: 100%;
+    min-height: 20vh;
+    background-color: rgb(125, 125, 125);
+    box-shadow: inset .1vw 0 black, inset -.1vw 0 black;
+    border-top: none;
+}
+
+.LoginOrRegisterBarSpanLatch[data-option="login"] {
+    min-height: 10vh;
+}
+
+.LoginOrRegisterBarSpan {
+    position: absolute;
+    font-size: 3vh;
+    background-image: linear-gradient(0deg, rgb(125, 125, 125), rgb(125, 125, 125));
+    color: rgb(0, 0, 0);
+    border-radius: 0vw 0vw 1vw 1vw;
+    padding: 0vh .5vw .5vh .5vw;
+    box-shadow: inset .1vw 0vh black, inset -.1vw -.1vh black;
+
+
+}
+
+.LoginOrRegisterEmailField {
+    position: absolute;
+    width: 50%;
+    height: 20%;
+    top: 0%;
+    right: 5%;
+}
+
+.LoginOrRegisterEmailField[data-purpose="login"] {
+    height: 40%;
+}
+
+.LoginOrRegisterEmailLabel {
+    position: absolute;
+    left: 5%;
+
+}
+
+.LoginOrRegisterPasswordField {
+    position: absolute;
+    width: 50%;
+    height: 20%;
+    top: 25%;
+    right: 5%;
+}
+
+.LoginOrRegisterPasswordField[data-purpose="confirmation"]{
+    top: 50%
+}
+
+.LoginOrRegisterPasswordField[data-purpose="login"] {
+    top: 50%;
+    height: 40%;
+}
+
+
+.LoginOrRegisterPasswordLabel {
+    position: absolute;
+    top: 25%;
+    left: 5%;
+}
+
+.LoginOrRegisterPasswordLabel[data-purpose="login"] {
+    top: 50%;
+
+}
+
+.LoginOrRegisterPasswordLabel[data-purpose="confirmation"] {
+    top: 50%;
+    z-index: 1;
+}
+
+
+#LoginOrRegisterPasswordLabel {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+}
+
+
+#RegistrationPasswordField:focus ~ #PasswordGuideContainer {
+    display: block;
+
+}
+
+#PasswordGuideContainer {
+    display: none;
+    position: absolute;
+    top: 200%;
+}
+
+
+#LoginOrRegisterUsernameLabel {
+    position: absolute;
+    top: 75%;
+    left: 5%;
+}
+
+#RegistrationUsernameField {
+    position: absolute;
+    width: 50%;
+    height: 20%;
+    top: 75%;
+    right: 5%;
+}
+
+.RequirementGuide {
+    color: rgb(125, 75, 50);
+    background-color: rgba(25, 25, 25);
+    margin-bottom: 1vh;
+    border-bottom: .5vh solid rgb(90, 90, 90);
+    border-radius: 2vh;
+    font-family:Georgia;
+}
+
+.RequirementGuide[data-fulfilled="true"] {
+    color: rgb(75, 125, 50);
+}
+
+#LoginOrRegisterBarCloseButton {
+    z-index: 101;
+    top: 0vh;
+    left: calc(50% - 5vh);
+    background-image: linear-gradient(rgb(125, 112, 112), rgb(125, 100, 100))
+
+}
+
+#RegisterSpan {
+    position: absolute;
+    top: 10vh;
+    left: 5%;
+    width: 85%;
+    border-radius: 1vh;
+    background-color: grey;
+    box-shadow: inset .1vw .1vh black, inset -.1vw -.1vh black;
+    cursor: grab;
+    font-size: 5vh;
+}
+
+.LoginOrRegisterEnterButton {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    height: 5vh;
+    background-color: rgb(125, 62, 62);
+    border-radius: 0 0 1vw 1vw;
+    box-shadow: inset .1vw .1vh, inset -.1vw -.1vh black;
+}
+
+
+#LoginOrRegisterOverlayRoot {
+    display: none;
+    top: 0vh;
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    height: 100vh;
+    background-color: #342928;
+}
+
+#LoginOrRegisterOverlayRoot[data-revealed="true"] {
+    display: block;
+}
+
+#LoginOrRegisterOverlayMethodsContainer {
+    position: absolute;
+    height: 100%;
+    width: 100vw;
+    background-color: var(--primaryCol);
+}
+
+#LoginOrRegisterOverlayMethodsContainer .LoginOrRegisterOverlayMethodButton {
+    margin-bottom: 10%;
+}
+
+#LoginOrRegisterOverlayMethodsContainer .LoginOrRegisterOverlayMethodButton:first-child {
+    margin-top: 10%;
+}
+
+.LoginOrRegisterOverlayMethodButton {
+    position: relative;
+    margin: auto;
+    width: 90%;
+    height: 15%;
+    background: var(--optionGradient);
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow);
+}
+
+#LoginOrRegisterOverlayLoginRoot {
+    display: none;
+    position: relative;
+    height: 75%;
+    width: 100%;
+    background-color: #61dafb;
+}
+
+
+#LoginOrRegisterOverlayLoginRoot[data-revealed="true"] {
+    display: block;
+}
+
+#LoginOrRegisterOverlayLoginFormsContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: var(--complimentaryCol);
+}
+
+.LoginOrRegisterOverlayLoginFormRoot {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 50%;
+}
+
+.LoginOrRegisterOverlayLoginFormTitle {
+    flex: 1;
+    margin: auto;
+    position: relative;
+    width: 90%;
+    background: var(--optionGradient);
+    box-shadow: inset .1vw 0 black, inset -.1vw 0 black;
+}
+
+.LoginOrRegisterOverlayLoginFormRoot:nth-child(1) 
+.LoginOrRegisterOverlayLoginFormTitle {
+    border-radius: 2vh 2vh 0 0;
+    box-shadow: inset .1vw .0vh black, inset -.1vw .1vh black;
+
+
+}
+
+.LoginOrRegisterOverlayLoginFormRoot:nth-child(2) 
+.LoginOrRegisterOverlayLoginFormInputField {
+    border-radius: 0 0 2vh 2vh;
+    margin-bottom: 5%;
+}
+
+.LoginOrRegisterOverlayLoginFormInputField {
+    flex: 1;
+    margin: auto;
+    position: relative;
+    width: 90%;
+    box-sizing: border-box;
+    box-shadow: inset .1vw 0 black, inset -.1vw 0 black;
+}
+
+
+
+
+#ProfilePageRoot {
+    position: absolute;
+    top: 7.5vh;
+    height: 185vh;
+    width: 100%;
+    max-width: 100%;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+
+
+}
+
+#ProfilePageRoot::-webkit-scrollbar {
+    display: none
+}
+
+#ProfilePagePage {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    min-height: 92.5vh;
+    max-height: 92.5vh;
+    max-width: 100%;
+    scrollbar-width: none;
+}
+
+#ProfilePagePage::-webkit-scrollbar {
+    display: none
+}
+
+
+#ProfileAvatarAndAchievementArea {
+    position: relative; 
+    top: 0%;
+    left: 0%;
+    width: 20%;
+    height: 100%;
+}
+
+#ProfileBox {
+    position: relative;
+    left: 0%;
+    height: 20vw;
+    background-size: cover  ;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: var(--fullBoxShadow);
+    border-style: solid;
+    border-width: 1vw;
+    border-image: linear-gradient(to bottom, var(--emphasizedPrimaryCol) 50%, var(--deg45Col), 
+        var(--deg90Col)) 50% 1% 1%;
+    box-sizing: border-box;
+
+}
+
+#ProfileBox[data-no_avatar="true"] {
+    background-image: url("static/images/no_avatar.png");
+}
+
+#CroppableAvatar {
+    position: relative;
+    z-index: 10;
+    left: 0%;
+    width: 80%;
+    height: calc( 100% - 11.75vh);
+    box-shadow: var(--fullBoxShadow);
+    border-style: solid;
+    border-width: 2vh 1.25vw 2.25vh 1vw;
+    border-image: linear-gradient(to bottom, var(--emphasizedPrimaryCol) 50%, var(--deg45Col), 
+        var(--deg90Col)) 50% 1% 1%;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#ProfileAchievementBox {
+    position: relative;
+    left: 0vw;
+    height: calc(42.5vh + calc(50vh - 20vw));
+    background-image: linear-gradient(to bottom, var(--deg90Col) 50% 70%, var(--secondaryCol)); 
+    box-shadow: inset 0vw .1vh rgba(0, 0, 0, 1), inset 0vw -.1vh rgba(0, 0, 0, 1);
+    box-sizing: border-box;
+
+}
+
+
+#ProfileCenterSection {
+    position: relative;
+    width: 65%;
+    height: 92.5vh;
+    background-color: var(--neutralCol);
+    box-shadow: inset -.1vw 0 black, inset .1vw 0vh rgba(0, 0, 0, 1);
+
+}
+
+#ProfileNameBox {
+    position: absolute;
+    top: 5%;
+    left: 38.5%;
+    width: 25%;
+    height: 10%;
+    background-color: rgb(175, 175, 175);
+    border-radius: 2vh;
+}
+
+#ProfileNameSpan {
+    position: relative;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    font-size: 5vh;
+    background-color: var(--primaryCol);
+    color: var(--secondaryTextCol);
+    transform: translateY(-50%);
+    box-shadow: var(--fullBoxShadow);
+}
+
+#ProfileBiographyBox {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    min-height: 50%;
+    background-color: rgb(120, 120, 120);
+    border-radius: 4vh;
+    border-color: black;
+    border-style: solid;
+    border-width: .5vh;
+}
+
+#ProfileBiographySpan {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    max-height: 90%;
+    background-color: rgb(145, 145, 145);
+    font-size: 3.25vh;
+    overflow-wrap: break-word;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    border-radius: 2vh;
+
+}
+
+
+#ProfileBiographyEditableSpan {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    background-color: rgb(0, 145, 145);
+    font-size: 3.25vh;
+    border-radius: 2vh;
+
+}
+
+#ProfileOptionsBox {
+    position: relative;
+    top: 75%;
+    left: 7.5%;
+    height: 15%;
+    width: 85%;
+    background-color: rgb(90, 90, 90);
+    border-radius: 1vh;
+    border: .1vw solid black;
+    
+}
+
+.ProfileOption {
+    position: relative;
+    height: 80%;
+    width: 10%;
+    margin-top: 1%;
+    margin-left: 5%;
+    float: left;
+    font-size: 5vh;
+    text-align: center;
+    background-color: var(--emphasizedPrimaryCol);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 2vh;
+    box-shadow: var(--fullBoxShadow);
+}
+
+.ProfileOption:hover {
+    cursor: grab;
+}
+
+.ProfileOption:hover .ProfileOptionTooltip {
+    display: block;
+}
+
+.ProfileOption:hover #ProfileInterestsBox {
+    display: block;
+}
+
+.ProfileOptionTooltip {
+    display: none;
+    position: absolute;
+    left: 0%;
+    bottom: 105%;
+    width: 20vw;
+    height: 100%;
+    background-color: white;
+    border-radius: 2vh;
+    box-shadow: var(--fullBoxShadow);
+}
+
+#ProfileInterestsBox {
+    display: none;
+    position: absolute;
+    bottom: 210%;
+    height: 25vh;
+    width: 25vw;
+    background-color: white;
+    border-radius: 2vh;
+    box-shadow: var(--fullBoxShadow);
+}
+
+
+#ProfileTraitGaugeContainer {
+    position: relative;
+    width: 15%;
+    height: 92.5vh;
+    background-color: var(--secondaryCol);
+    box-shadow: inset .5vw 2vh 1vh 0vh var(--tertiaryCol);
+}
+
+#Gauges {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+#ProfileRevealGaugesArea {
+    display: none;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: url(static/images/arrow.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: repeat-y;
+}
+
+
+
+.ProfileTraitGauge {
+    position: relative;
+    width: 90%;
+    height: 10%;
+    background-image: linear-gradient(90deg, rgb(125, 62, 62) 0%, grey 0%);
+    border-radius: 2vh;
+    filter: drop-shadow(1vh 1vh var(--primaryCol));
+    box-shadow: inset 0vw 0vh 0vw .3vh black;
+    border-color: var(--emphasizedPrimaryCol);
+
+}
+
+.ProfileTraitGauge:hover .ProfileTraitGaugeTooltip {
+    display: block;
+}
+
+.ProfileTraitGaugeTooltip {
+    display: none;
+    position: absolute;
+    margin-right: 5%;
+    right: 100%;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 2vh;
+    box-shadow: var(--fullBoxShadow);
+}
+
+.ProfileTraitGaugeSpan {
+    position: absolute;
+    top: calc(50% - 4vh);
+    left: 0%;
+    width: 100%;
+    font-size: 4vh;
+    text-align: center;
+}
+
+
+#PersonalityAssessmentPageRoot {
+    position: absolute;
+    top: 7.5vh;
+    height: 110vh;
+    width: 100%;
+    max-width: 100%;
+    background-color: var(--neutralCol);
+    scrollbar-width: none;
+}
+
+#PersonalityAssessmentMetaOptions {
+    display: flex;
+    gap: 5%;
+    position: relative;
+    width: 100%;
+    height: 10vh;
+    background-color: var(--primaryCol);
+    box-shadow: inset 0 -.1vh black;
+}
+
+#PersonalityAssessmentMetaOptions::before {
+    content: "";
+}
+
+#AssessmentsSection {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    background-color: #61dafb;
+}
+
+.AssessmentOptionContainer {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    position: relative;
+    width: 100%;
+    background-color: azure;
+}
+
+
+.AssessmentOption {
+    flex: 1;
+    position: relative;
+    height: 100%;
+    background: var(--optionGradient);
+    cursor: pointer;
+}
+
+
+
+.AssessmentOption[data-active="true"] .StandardSpan::after {
+    content: " ✓";
+}
+
+.AssessmentOptionBackdrop {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 50vmin;
+    height: 15vmin;
+    border-radius: 2vh;
+    background: var(--optionGradient);
+    transform: translate(-50%, -50%);
+    box-shadow: var(--fullBoxShadow);
+}
+
+.AssessmentOptionContainer[data-status="true"] .AssessmentOptionBackdrop {
+    background: var(--secondaryTextCol);
+}
+
+.AssessmentOptionContainer[data-status="false"] .AssessmentOptionBackdrop {
+    background: var(--tertiaryCol)
+}
+
+.AssessmentOptionContainer[data-status="false"] .AssessmentOptionName .StandardSpan {
+    color: var(--secondaryTextCol);
+}
+
+
+.AssessmentOptionName {
+    flex: 1;
+    position: relative;
+    height: 100%;
+    background: linear-gradient(var(--emphasizedPrimaryCol), var(--primaryCol));
+    box-shadow: inset .1vw -.1vh black;
+}
+
+.AssessmentOptionName .StandardSpan {
+    font-size: 4vh;
+}
+
+.AssessmentOption:nth-child(1) {
+    box-shadow: inset .1vw -.1vh black;
+}
+
+.AssessmentOption:nth-child(2) {
+    box-shadow: inset .1vw -.1vh black, inset -.1vw 0 black;
+}
+
+.AssessmentOption:nth-child(3) {
+    box-shadow: inset -.1vw -.1vh black;
+}
+
+.AssessmentOption[data-active="true"] {
+    background-image: linear-gradient(var(--emphasizedComplimentaryCol), var(--complimentaryCol));
+}
+
+
+#ProfilePagePostPage {
+    display: block;
+    position: relative;
+    max-width: 100%;
+    height: 92.5vh;
+    max-height: 92.5vh;
+    overflow-y: scroll;
+    width: 100%;
+    max-width: 100%;
+    background-color: rgb(128, 128, 128);
+    box-shadow: var(--fullBoxShadow);
+    scrollbar-width: none;
+    padding-bottom: 10vh;
+
+}
+
+#ProfilePagePostPage::-webkit-scrollbar {
+    display: none;
+}
+
+#PostViewingOptionsContainer {
+    position: relative;
+    top: 10vh;
+    height: 10vh;
+    width: 80%;
+    background-color: #282c34;
+    margin: auto;
+    margin-bottom: 20vh;
+}
+
+#ProfilePagePostsContainer {
+    position: relative;
+    padding-top: 10vh;
+    top: 10vh;
+}
+
+
+.PostBox {
+    position: relative;
+    min-height: 20vh;
+    height: fit-content;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 10vh;
+    background-color: rgb(200, 200, 200);
+    border-style: solid;
+    border-width: 2vh;
+    border-image: linear-gradient(to bottom, var(--primaryCol), var(--secondaryCol)  90%) 1;
+    outline-color: var(--emphasizedPrimaryCol);    outline-style: solid;
+    outline-width: .5vh;
+    box-shadow: var(--fullBoxShadow);
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+
+}
+
+
+
+.PostBox[data-classification="subject"] {
+    box-shadow: var(--fullBoxShadow);
+}
+
+.PostBox[data-classification="comment"] {
+    position: relative;
+    margin: 0%;
+    left: clamp(25vh, 15%, 20%);
+    bottom: auto;
+    top: -25vh;
+    width: 80%;
+    max-width: calc(99% - 29vh); /* the 24vh is decided based on the width of this border (4vh) */
+
+}
+
+.PostBox[data-classification="comment_prompt"] {
+    top: 10vh;
+    margin-bottom: none;
+    border-image: linear-gradient(to bottom, rgb(37, 37, 37), rgb(6, 6, 6) 90%) 1;
+}
+
+.PostBox[data-classification="comment"]:hover {
+    cursor: default;
+}
+
+.PostBox[data-chosen="true"] {
+    top: 0vh;
+    animation: expand_from_circle 1.25s 1;
+    margin-bottom: 10vh;
+}
+
+.PostBox[data-chosen="true"]:hover {
+    cursor: default;
+}
+
+.PostBox[data-selected="true"] {
+    outline-color: var(--emphasizedComplimentaryCol);
+    border-image: linear-gradient(to bottom, var(--emphasizedPrimaryCol), var(--complimentaryCol) 90%) 1;
+
+}
+
+.PostBox:hover {
+    cursor: grab;
+}
+
+.PostContentDiv {
+    position: relative;
+    top: 5vh;
+    left: 1.25%;
+    width: 97.5%;
+    min-height: 10vh;
+    margin-bottom: 11vh;
+}
+
+.PostContentDiv * {
+    line-height: 0px;
+}
+
+
+.PostBoxDateDiv {
+    position: absolute;
+    left: 0%;
+    width: 25%;
+    height: 5vh;
+}
+
+
+.PostBoxNameDiv {
+    position: absolute;
+    left: 33%;
+    width: 33%;
+    height: 5vh;
+}
+
+
+.PostBoxTitleDiv {
+    position: absolute;
+    left: 37.5%;
+    width: 25%;
+    font-size: larger;
+    height: 5vh;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    box-shadow: inset 0vh -.2vh black;
+}
+
+.PostBoxTitleDiv::-webkit-scrollbar {
+    display: none;
+}
+
+.PostBoxCommentsDiv {
+    position: absolute;
+    right: 0%;
+    width: 25%;
+    height: 5vh;
+}
+
+.PostReactionsContainer {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0vh;
+    left: 0%;
+    width: 100%;
+    height: 5vh;
+    background-color: rgb(240, 248, 255);
+    box-shadow: var(--fullBoxShadow);
+    cursor: initial;
+}
+
+
+.PostReactionsContainer[data-classification="subject"] {
+    background-color: rgb(190, 198, 205);
+    box-shadow: inset 0 .1vh 0 0 black;
+}
+
+.PostReaction {
+    height: 100%;
+    width: 10%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.PostAddReactionTooltip {
+    position: absolute;
+    left: 75%;
+    width: 25%;
+    min-height: 100%;
+    background: var(--optionGradient);
+    box-shadow: var(--fullBoxShadow);
+}
+
+.PostAddReactionTooltip:hover .PostAddReactionContainer {
+    display: flex;
+}
+
+.PostAddReactionContainer {
+    display: none;
+    position: absolute;
+    transform: none;
+    height: 16vh; /* 15vh is the post's box minimum height of 20vh minus the 5vh of the reaction container (15vh). the additional 1vh */
+    width: 100%; /* comes to combat an additional 1vh that the solid border style induces. 16vh means it always fits */
+    bottom: 100%;
+    background-color: #61dafb;
+    box-shadow: var(--fullBoxShadow);
+}
+
+
+
+.PostAddReactionContainer .PostReaction {
+    flex: 1;
+    cursor: pointer;
+    background-color: var(--emphasizedPrimaryCol);
+    box-shadow: var(--fullBoxShadow);
+}
+
+.PostAddReactionContainer .PostReaction:nth-child(2n) {
+    background-color: var(--emphasizedComplimentaryCol);
+}
+
+
+.PostBoxLink {
+    color:inherit;
+    text-decoration: none;
+    outline: none;
+}
+
+.PostBoxLink:active {
+    outline: none;
+}
+
+
+
+#ProfilePostPageRoot {
+    max-width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-color: rgb(75, 75, 75);
+    background-repeat: no-repeat;
+    transition: none;
+}
+
+
+.ProfilePostPagePage {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 7.5vh);
+    background-color: var(--neutralCol);
+}
+
+#ManagementSection {
+    position: relative;
+    top: 7.5vh;
+    background-color: rgb(45, 45, 45);
+    transition: .75s;
+}
+
+#ProfilePostPageTitleInput {
+    position: absolute;
+    right: 0%;
+    top: -25%;
+    width: 80%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    outline: none;
+    font-size: 125%;
+
+}
+
+.ProfilePostPageSpan {
+    position: absolute;
+    top: calc(50% - 3vh);
+    left: 0%;
+    width: 100%;
+    height: 10vh;
+    font-size: 3vh;
+    border-radius: 1vh;
+}
+
+.ProfilePostPageOption {
+    position: absolute;
+    width: 25%;
+    height: 10vh;
+    background-image: var(--optionGradient);
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow), -.5vw 1vh 1vh rgba(11, 11, 22, .5);
+
+}
+
+.ProfilePostPageOption:hover {
+    cursor: grab;
+}
+
+.ProfilePostDraftBox {
+    position: relative;
+    float: left;
+    height: 10vh;
+    width: 40%;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    margin-left: 5%;
+    background-color: rgba(125, 100, 100, .5);
+    border-style: solid;
+    border-width: 2vh;
+    border-image: linear-gradient(to bottom, rgb(125, 125, 125), rgb(62, 62, 62) 90%) 1;
+    outline-style: solid;
+    outline-width: .5vh;
+    outline-color: rgb(150, 150, 150);
+    box-shadow: var(--fullBoxShadow);
+
+}
+
+.ProfilePostDraftBox:hover {
+    cursor: grab;
+}
+
+#ProfilePostToolbar {
+    position: absolute;
+    top: 15%;
+    left: calc(25% + .5vw);
+    width: calc(50% + 1vw);
+    height: 10vh;
+    background-image: linear-gradient(to bottom, rgba(125, 125, 125, .5) 50%, rgba(0, 0, 22, .90) 85%);
+    border-radius: 1vh 1vh;
+    box-shadow: var(--fullBoxShadow), 0vw 0vh 0vw 1vh var(--emphasizedPrimaryCol);
+}
+
+#CommentToolbar {
+    position: absolute;
+    top: 10%;
+    left: calc(0% + calc(1vw + 1vh));
+    width: calc(100% - calc(2vw + 2vh));
+    height: 10vh;
+    background-image: linear-gradient(to bottom, rgba(125, 125, 125, .5) 50%, rgba(0, 0, 22, .90) 85%);
+    border-radius: 1vh 1vh;
+    box-shadow: var(--fullBoxShadow), 0vw 0vh 0vw 1vh rgb(62.5, 62.5, 125);
+}
+
+
+#ProfilePostDescriptionBox {
+    position: absolute;
+    top: calc(15% + 10vh);
+    left: 25%;
+    width: 50%;
+    height: 65%;
+    background-image: radial-gradient(circle, rgba(200, 200, 200, .95) 95%, rgba(125, 125, 125, 1));
+    border-radius: 1vh;
+    box-shadow:  var(--fullBoxShadow), .5vw 1vh rgb(125, 125, 125),
+    -.5vw 1vh rgb(125, 125, 125), inset 1vw 1vh .1vw rgba(62, 62, 62, .85), inset -1vw -1vh .1vw rgba(62, 62, 62, .85);
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding-inline: 1vw;
+    animation: text_animation .75s 1;
+    line-height: 130%;
+}
+
+#ProfilePostDescriptionBox::-webkit-scrollbar {
+    display: none;
+}
+
+
+#CommentDescriptionBox {
+    position: absolute;
+    top: calc(10% + 10vh);
+    left: calc(0% + 1vh);
+    width: calc(100% - calc(2vw + 2vh));
+    height: 60vh;
+    background-image: radial-gradient(circle, rgba(200, 200, 200, .95) 95%, rgba(125, 125, 125, 1));
+    border-radius: 1vh;
+    box-shadow:  var(--fullBoxShadow), .5vw 1vh rgb(125, 125, 125),
+    -.5vw 1vh rgb(125, 125, 125), inset 1vw 1vh .1vw rgba(62, 62, 62, .85), inset -1vw -1vh .1vw rgba(62, 62, 62, .85);
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding-inline: 1vw;
+    animation: text_animation .75s 1;
+    line-height: 130%;
+}
+
+#PostPageRoot {
+    position: absolute;
+    top: 7.5vh;
+    width: 100%;
+    height: 92.5vh;
+    max-height: 100%;
+    background-color: rgb(62, 62, 62);
+    overflow-y: scroll;
+}
+
+
+.PostPageProfilingContainer {
+    position: relative;
+    left: 0%;
+    width: 15vw;
+    height: 50vh;
+    min-width: 25vh;
+    max-width: 25vh;
+    background-color: white;
+}
+
+.PostPageProfilingContainer:hover .ProfilingOverlay {
+    display: block;
+}
+
+.ProfilingOverlay {
+    display: none;
+    position: absolute;
+    z-index: 5;
+    bottom: 0%;
+    width: 50vw;
+    height: 50vh;
+    background-color: whitesmoke;
+    box-shadow: inset -.1vw -.1vh black, inset .1vw .1vh black;
+}
+
+#PostPageMainAvatar {
+    width: 15vw;
+    height: 15vw;
+    min-height: 25vh;
+    min-width: 25vh;
+    max-height: 25vh;
+    max-width: 25vh;
+    background-size: cover;
+    background-image: url(http://localhost:3000/static/media/no_avatar.d4b7f60e117e2b53a5ab.png);
+}
+
+#PostPageContent {
+    position: absolute;
+    top: 5%;
+    width: 100%;
+    max-height: 92.5vh;
+}
+
+.PostPageMainPost {
+    position: absolute;
+    box-sizing:content-box;
+    margin: none;
+    right: .5vw;
+    min-height: 30vh;
+    width: 100%;
+    max-width: calc(100% - calc(26vh + .5vw)); /* the 26vh + .5vw is decided based on the width of this border (4vh) 
+                                                plus the minimum width of the accompanying avatar (25vh) and the element's
+                                                rightmost point (.5vw) */
+    background-color: rgb(200, 200, 200); /* and the minimum width (20vh) of the avatar */
+    border-style: solid;
+    border-width: 2vh; 
+    border-image: linear-gradient(to bottom, var(--primaryCol), var(--secondaryCol)  90%) 1;
+    outline-color: var(--emphasizedPrimaryCol);    outline-style: solid;
+    outline-width: .5vh;
+    box-shadow: var(--fullBoxShadow);
+    box-sizing: border-box;
+    
+}
+
+#PostPageSubthreadsContainer {
+    position: absolute;
+    top: calc(100% + 10vh);
+    height: 50vh;
+    max-height: 92.5vh;
+    width: 100%;
+    max-width: calc(100% + 2vh);
+    right: 0vw;
+    overflow-y: scroll;
+    background-color: rgb(87, 87, 87);
+    box-shadow: var(--fullBoxShadow);
+    transition: .75s, opacity 1s;
+}
+
+
+#PostPageSubthreadsContainer:hover, #PostPageSubthreadsContainer[data-expanded="true"] {
+    top: calc(100% - 33vh); /* 33vh is the minimum height of the main post */
+    width: 90vw;
+    max-width: 90vw;
+    height: 100vh;
+    transition: .75s;
+}
+
+
+
+#PostPageSubthreadsContainer[data-locked="true"] {
+    top: calc(100% - 33vh);
+    width: 90vw;
+    max-width: 90vw;
+    height: 100vh;
+    transition: .75s;
+}
+
+
+
+#PostPageCreateSubthreadButton:hover #CreateNewSubjectField {
+    display: block;
+    cursor: auto;
+}
+
+
+#PostPageCreateSubjectBox {
+    margin: auto;
+    margin-top: 5%;
+    height: 40vh;
+    width: 80%;
+    
+}
+
+#PostPageCreateSubjectTooltip {
+    position: relative;
+    bottom: 0vh;
+    left: 0vw;
+    height: 20%;
+    width: 100%;
+    font-size: 3vh;
+    background-color: var(--primaryCol);
+    border-radius: 2vh 2vh 0vh 0vh;
+    box-shadow: inset .1vw .1vh black, inset -.1vw -.1vh black;
+    
+}
+
+
+
+#PostPageSubjectOptions {
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 20%;
+    background: var(--primaryCol);
+    box-shadow: inset .1vw .1vh black, inset -.1vw -.1vh black;
+}
+
+
+#PostPageCreateSubjectInputField {
+    display: block;
+    position: relative;
+    margin: auto;
+    height: 80%;
+    width: 100%;
+    font-size: clamp(18px, 3vmin, 4vh);
+    text-align: center;
+    background-color: rgb(200, 200, 200);
+    border-style: none;
+    border-width: 0px;
+    border-color: black;
+    box-shadow: var(--fullBoxShadow);
+    overflow-wrap: break-word;
+    resize: none;
+    box-sizing: border-box;
+
+}
+
+#SelectedSubject {
+    display: none;
+    z-index: 101;
+    top: 0vh;
+    width: 100%;
+    height: 100vh;
+    transition: .75s;
+    overflow-y: scroll;
+    scrollbar-width: 0vw;
+
+}
+
+
+#SubjectContainer {
+    position: absolute;
+    top: 7.5vh;
+    height: 50vh;
+    max-height: 50vh;
+    width: 100%;
+    overflow-y: scroll;
+    background-color: black;
+    transition: 1.75s;
+    scrollbar-width: none;
+}
+
+#SubjectContainer[data-unleashed="true"] {
+    background-color: rgb(102, 102, 102);
+
+}
+
+
+#PostPageSubjectCommentSection {
+    position: absolute;
+    top: 50vh;
+    height: 92.5vh;
+    max-height: 0vh;
+    width: 100%;
+    background-color: rgb(127, 127, 127);
+    scrollbar-width: 0vw;
+
+
+    
+}
+
+.PostPageComment {
+    position: relative;
+    width: 100%;
+    min-height: 50vh;
+    background-color: rgb(127, 127, 127);
+    box-shadow: inset -.1vw -.1vh black, inset .1vw .1vh black;
+    scrollbar-width: none;
+    scroll-snap-align: smooth;
+}
+.PostPageCommentPrompt {
+    position: relative;
+    width: 100%;
+    min-height: 48vh;
+    padding-bottom: 20%;
+    background-color: #282c34;
+    scrollbar-width: none;
+    scroll-snap-align: smooth;
+}
+
+.PostPageSignatureContainer {
+    position: absolute;
+    width: 100%;
+    bottom: 0%;
+    height: 20vh;
+    background-color: var(--tertiaryCol);
+    box-shadow: inset -.1vw -.1vh black, inset .1vw .1vh black;
+
+}
+
+
+#PostPageReturn {
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    position: relative;
+    bottom: 100%;
+    justify-content: center;
+    height: 10vh;
+    width: 100%;
+    background-color: #342928;
+}
+
+#PostPageReturn * {
+    position: relative;
+    align-self: center;
+}
+
+
+#ProfileSearchOptionsContainer {
+    position: relative;
+    margin-top: 7.5vh;
+    width: 100%;
+    height: 10vh;
+    background-color: var(--primaryCol);
+    box-shadow: inset 0 -.1vh black;
+}
+
+.StandardSpan {
+    position: absolute;
+    font-size: clamp(18px, 3vmin, 4vh);
+    text-align: center;
+    left: 0%;
+    width: 100%;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    overflow-wrap: break-word;
+    word-break:keep-all;
+    hyphens: auto;
+    text-decoration: inherit;
+
+}
+
+.StandardSpan[data-no_click="true"] {
+    pointer-events: none;
+}
+
+.StandardButPotentiallyLengthySpan {
+    font-size: 3vh;
+    text-align: center;
+    left: 0%;
+    width: 100%;
+    overflow-wrap: break-word;
+    word-break:keep-all;
+    hyphens: auto;
+}
+
+#ProfileSearchPageRoot {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--neutralCol);
+    scrollbar-width: none;
+    overflow: scroll;
+}
+
+#ProfileSearchPageRoot::-webkit-scrollbar {
+    display: none;
+}
+
+
+#ProfileNameSearch {
+    position: relative;
+    top: 12.5%;
+    left: 5%;
+    height: 75%;
+    width: 20%;
+    background-color: grey;
+    background-image: var(--optionGradient);
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow);
+    transition: .35s;
+
+}
+
+#NameSearchSymbol {
+    display: none;
+}
+
+#ProfileNameSearch:focus-within {
+    box-shadow: var(--fullBoxShadow), inset 0 -2vmin 1vmin var(--emphasizedPrimaryCol);
+
+}
+
+
+
+#ProfileNameSearchField {
+    position: absolute;;
+    right: 5%;
+    top: 50%;
+    bottom: calc(0% + 1.5vh);
+    width: 60%;
+    max-width: 65%;
+    max-height: calc(100% - 1.5vh);
+    height: 50%;
+    box-sizing: border-box;
+    transform: translateY(-50%);
+}
+
+
+#ProfileInterestsSearch {
+    position: absolute;
+    top: 12.5%;
+    left: 30%;
+    bottom: calc(0% + 1.5vh);
+    width: 40%;
+    height: 75%;
+    background-image: var(--optionGradient);
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow);
+
+
+}
+
+#ProfileInterestsSearch:hover #DropdownContainer {
+    display: block;
+
+}
+
+#ProfileToolbar {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 10vh;
+    background-image: linear-gradient(to bottom, rgba(125, 125, 125, .5) 50%, rgba(0, 0, 22, .90) 85%);
+    border-radius: 1vh 1vh;
+    box-shadow: var(--fullBoxShadow), 0vw 0vh 0vw 1vh var(--emphasizedPrimaryCol);
+}
+
+
+#ProfileDescriptionBox {
+    position: absolute;
+    top: calc(5% + 10vh);
+    left: calc(5% - .5vw);
+    width: calc(90% - 1vw);
+    height: 55%;
+    background-image: radial-gradient(circle, rgba(200, 200, 200, .95) 95%, rgba(125, 125, 125, 1));
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow), .5vw 1vh var(--deg90Col), -.5vw 1vh var(--deg90Col), 
+    inset 1vw 1vh .1vw var(--deg45Col), inset -1vw -1vh .1vw var(--deg45Col);
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding-inline: 1vw;
+    animation: text_animation .75s 1;
+    line-height: 130%;
+}
+
+@keyframes text_animation {
+    from {
+        line-height: 650%;
+    }
+
+    to {
+        line-height: 130%;
+    }
+}
+
+#ProfileDescriptionBox::-webkit-scrollbar {
+    display: none;
+}
+
+
+#DropdownContainer {
+    display: none;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    top: 100%;
+    width: 100%;
+    
+}
+
+.DropdownOption {
+    position: relative;
+    left: 0%;
+    height: 10vh;
+    width: 100%;
+    background-color: var(--emphasizedComplimentaryCol);
+    border-radius: 1vh;
+    cursor: grab;
+    transition: .45s;
+
+
+}
+
+
+
+.DropdownOption[data-active=true] .StandardSpan::after {
+    content: " ✓";
+}
+
+.DropdownOption[data-active=false] .StandardSpan::after {
+    content: " ✘";
+}
+
+
+.DropdownOption[data-subcategory_type=true]:hover .SubcategoryOptionsContainer {
+    display: block;
+}
+
+.DropdownOption::before {
+    position: absolute;
+    content: "";
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background: var(--optionGradient);
+    clip-path: polygon(0% 100%, 100% 0%, 0% 0%);
+    border-radius: 1vh;
+}
+
+.DropdownOption:nth-child(2n):before {
+    clip-path: polygon(100% 0%, 0% 100%, 100% 100%);
+
+}   
+
+
+.DropdownOption:nth-child(2n)[data-active="true"] {
+    filter: hue-rotate(180deg) saturate(100%);
+    transition: .45s;
+
+}
+
+.DropdownOption:nth-child(2n)[data-active="false"] {
+    filter: hue-rotate(180deg) saturate(0%);
+    transition: .45s;
+
+}
+
+
+.DropdownOption:after {
+    position: absolute;
+    content: "";
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height: 100%;
+    border-radius: 1vh;
+    box-shadow: inset -.1vw -.1vh black, inset .1vw .0vh black;
+}
+
+
+.DropdownOption[data-active="false"] {
+    filter: saturate(0%);
+}
+
+
+
+.SubcategoryOptionsContainer {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0%;
+    width: 50vw;
+    
+}
+
+.SubcategoryOption {
+    position: relative;
+    height: 10vh;
+    width: 15vw;
+    float: left;
+    background-color: rgb(62, 62, 93);
+    border: solid .1vh black;
+    border-bottom: none;
+    border-top: solid .1vh black;
+    border-radius: 1vh;
+}
+
+.SubcategoryOption[data-active=true]::after {
+    content: " ✓";
+}
+
+.SubcategoryOption[data-active=false]::after {
+    content: " ✘";
+}
+
+
+.SubcategoryOption:hover {
+    background-image: linear-gradient(to right, rgba(125, 125, 125, .5) 25%, 30%, rgba(93, 93, 93, .5));
+}
+
+
+#ProfileSearchBoxesContainer {
+    position: relative;
+    margin: auto;
+    margin-top: 2vh;
+    width: 88vw;
+    height: 100vh;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    background-color: rgb(125, 125, 125);
+    border-radius: 2vh 2vh 0 0;
+    border: solid .1vh black;
+}
+
+#ProfileSearchBoxesContainer::-webkit-scrollbar {
+    display: none;
+}
+
+
+.ProfileSearchBox {
+    position: relative;
+    display: inline-block;
+    margin: 1.25%;
+    margin-bottom: 1.25%;
+    margin-top: none;
+    width: 88%;
+    height: 30%;
+    background-color: grey;
+    border-style: solid;
+    border-width: 2vh;
+    border-image: linear-gradient(to bottom, var(--deg45Col), var(--deg90Col) 90%) 1;
+    outline-style: solid;
+    outline-width: .5vh;
+    outline-color: rgb(125, 125, 150);
+
+}
+
+.ProfileSearchBoxAvatarContainer {
+    position: relative;
+    left: 0%;
+    top: 0%;
+    width: 20%;
+    height: 100%;
+    background: linear-gradient(to top, var(--deg45Col), var(--deg90Col) 90%);
+}
+
+.ProfileSearchBoxAvatar {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url("static/images/no_avatar.png");
+    background-size: contain;
+    background-position: center;
+    box-shadow: var(--fullBoxShadow);
+
+}
+
+
+.ProfileSearchBoxDescriptionSection {
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    width: 80%;
+    height: 80%;
+    background-color: rgb(45, 45, 60);
+    overflow-y: scroll;
+
+}
+
+.DescriptionSpan {
+    position: absolute;
+    left: 5%;
+    top: 5%;
+    width: 90%;
+    padding-left: .5%;
+    padding-right: .5%;
+    background-color: rgb(125, 125, 125);
+    border-radius: 4vh;
+}
+
+
+.ProfileSearchBoxNameSection {
+    position: absolute;
+    left: 20%;
+    top: 0%;
+    width: 80%;
+    height: 20%;
+    background-color: rgb(125, 150, 150);
+    box-shadow: inset 0 -.1vh black;
+}
+
+.SettingSection {
+    width: 100%;
+    height: 50%;
+    background-image: linear-gradient(90deg, var(--secondaryCol) 0 75%, rgb(0, 0, 31));
+    box-shadow: inset 0 0 0 .5vh black;
+}
+
+#ColorSettings {
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    align-items: center;
+
+}
+
+#ColorSettings::before {
+    content: "";
+}
+
+#ColorSettings::after {
+    content: "";
+}
+
+
+#ColorSettings .Slider {
+    position: relative;
+    flex: 1;
+}
+
+#EntreatyManagementOptions {
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    justify-content: center;
+    position: absolute;
+    right: 0vw;
+    height: 10vh;
+    background-color: var(--primaryCol);
+    box-shadow: inset 0 -.1vh black;
+
+}
+
+
+#PinSave, #PinCancel {
+    display: none;
+}
+
+#PinSave[data-visible="true"], #PinCancel[data-visible="true"] {
+    display: block;
+}
+
+#PinButton[data-visible="false"] {
+    display: none;
+}
+
+
+#ManagementOptions {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap: 5%;
+    position: absolute;
+    right: 0vw;
+    width: 90%;
+    height: 10vh;
+    background-color: var(--primaryCol);
+    box-shadow: inset 0 -.1vh black;
+    transition: .75s;
+}
+
+#ManagementOptions::before {
+    content: "";
+}
+
+.EntreatyManagementOption {
+    position: relative;
+    align-self: center;
+    height: 75%;
+    width: 15%;
+    background-image: var(--optionGradient);
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow);
+    cursor: grab;
+}
+
+.StandardOption {
+    position: relative;
+    align-self: center;
+    height: 75%;
+    width: 15%;
+    background-image: var(--optionGradient);
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow);
+    cursor: grab;
+}
+
+#EntreatyDetailsPanel {
+    left: 0vw;
+    width: 10%;
+    height: 92.5vh;
+    background-color: var(--secondaryCol);
+    box-shadow: inset -.1vw 0vh black;
+
+}
+
+#DetailsPanel {
+    left: 0vw;
+    width: 10%;
+    height: 92.5vh;
+    background-color: var(--secondaryCol);
+    box-shadow: inset -.1vw 0vh black;
+    transition: 0.75s;
+
+
+
+}
+
+
+#EntreatyCoverManagementContainer {
+    display: none;
+}
+
+#EntreatiesTagPage {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--neutralCol);
+}
+
+#EntreatySettingsMangementSection {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 45);
+}
+
+
+#EntreatyCreationSettingsMetaOptionsSection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+    position: relative;
+    width: 100%;
+    height: 15%;
+    background-color: var(--primaryCol);
+}
+
+.EntreatyCreationsSettingsMetaOption {
+    position: relative;
+    width: 25%;
+    height: 75%;
+    background: var(--optionGradient);
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow);
+    cursor: pointer;
+}
+
+
+#CustomOptionsContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+    position: relative;
+    height: 10%;
+    width: 100%;
+    background-color: var(--primaryCol);
+    box-shadow: inset 0 -.1vh black;
+}
+
+#CustomOptionsContainer::before {
+    content: "";
+}
+
+#CustomTagTextField {
+    width: 33%;
+    height: 80%;
+    align-self: center;
+    font-size: clamp(18px, 3vmin, 4vh);
+    border-radius: 1vh;
+    resize: none;
+    box-sizing: border-box;
+}
+
+#TagsContainer {
+    position: relative;
+    width: 100%;
+    height: 90%;
+    overscroll-behavior: contain;
+    overflow-y: scroll;
+    filter: drop-shadow(0 .6vh);
+}
+
+.SettingOptionContainer {
+    position: relative;
+    width: 100%;
+    height: 25%;
+    cursor: pointer;
+}
+
+
+.SettingOptionNameSection {
+    display: inline-block;
+    position: relative;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(var(--emphasizedPrimaryCol), var(--primaryCol));
+    box-shadow: inset -.1vw -.1vh black;
+}
+
+.SettingOptionIndicatorSection {
+    display: inline-block;
+    position: relative;
+    width: 50%;
+    height: 100%;
+    background: var(--optionGradient);
+    box-shadow: inset -.1vw -.1vh black;
+}
+
+.SettingOptionIndicatorSection[data-status="1"] {
+    background: linear-gradient(var(--emphasizedComplimentaryCol), var(--complimentaryCol));
+}
+
+
+.SettingBackdrop {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 50vmin;
+    height: 20vmin;
+    border-radius: 2vh;
+    background: var(--optionGradient);
+    transform: translate(-50%, -50%);
+    box-shadow: var(--fullBoxShadow);
+}
+
+.SettingOptionContainer[data-status="1"] .SettingBackdrop {
+    background: var(--secondaryTextCol);
+}
+
+.SettingSpan {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0%;
+    transform: translateY(-50%);
+    font-size: 5vh;
+}
+
+
+
+.SettingSpan[data-indicator="0"]::after {
+    content: "✘";
+}
+
+.SettingSpan[data-indicator="1"]::after {
+    content: "✓";
+}
+
+
+#EntreatiesContainer {
+    position: relative;
+    top: 10vh;
+    height: 82.5vh;
+    
+}
+
+
+#CurrentEntreatiesSection {
+    position: absolute;
+    top: 10vh;
+    height: 82.5vh;
+    overflow-y: scroll;
+    background-color: #282c34;
+}
+
+
+.EntreatyViewBox {
+    position: relative;
+    display: inline-block;
+    margin: 1.25%;
+    margin-bottom: 1.25%;
+    margin-top: none;
+    width: 20vw;
+    height: 20vw;
+    background-color: grey;
+    border-style: solid;
+    border-width: 2vh;
+    border-image: linear-gradient(to bottom, var(--emphasizedComplimentaryCol), 
+        hsl(calc(var(--chosenHue) - 180), 33%, 18%) 90%) 1;
+    outline-style: solid;
+    outline-width: .5vh;
+    outline-color: hsl(calc(var(--chosenHue) - 180), 27%, 46%);
+}
+
+.EntreatyViewBox[data-pin_candidate="true"] .EntreatyPinIndicator {
+    display: block;
+}
+
+.EntreatyViewBoxTitleSection {
+    position: relative;
+    height: 20%;
+    background-color: var(--emphasizedPrimaryCol);
+    color: var(--secondaryTextCol);
+    text-decoration: solid underline var(--emphasizedComplimentaryCol);
+}
+
+.EntreatyViewBoxImageSection {
+    position: relative;
+    height: 80%;
+    background-color: var(--tertiaryCol);
+    background-size: cover;
+}
+
+.EntreatyPinIndicator {
+    z-index: 1;
+    display: none;
+    position: absolute;
+    width: 5vmin;
+    height: 5vmin;
+    background-color: aliceblue;
+    box-shadow: var(--fullBoxShadow);
+}
+
+.EntreatyPinIndicator::before {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    top: 50%;
+    left: 0%;
+    transform: translateY(-50%);
+    content: "✘";
+    font-size: 4vmin;
+    font-family: "-apple-system";
+}
+
+.EntreatyPinIndicator[data-pinned="true"]::before {
+    content: "✓";
+}
+
+.EntreatyManagementSpan {
+    position: absolute;
+    width: 100%;
+    font-size: clamp(18px, 3vmin, 4vh);
+    left: 0%;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    overflow-wrap: break-word;
+}
+
+
+#EntreatyCreationSection {
+    display: none;
+    height: 0%;
+    width: 0%;
+}
+
+#EntreatyCreationSection[data-revealed="true"] {
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    transition: .75s;
+    opacity: 1;
+}
+
+
+.EntreatyCreationSpanContainer {
+    position: absolute;
+    top: 0%;
+    width: 20%;
+    height: 10%;
+    background-image: var(--optionGradient);
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow), -.5vw 1vh 1vh rgba(11, 11, 22, .5);
+
+}
+
+#EntreatyCreationPictureContainer {
+    position: relative;
+    top: 15%;
+    width: 40vh;
+    height: 85%;
+}
+
+#EntreatyCreationAddImageButton {
+    top: 5%;
+    left: 12.5%;
+    width: 75%;
+    cursor: grab;
+}
+
+#EntreatyCreationAddTagsButton {
+    top: 55%;
+    left: 12.5%;
+    width: 75%;
+    cursor: grab;
+}
+
+#EntreatyCreationSettingsButton {
+    top: 80%;
+    left: 12.5%;
+    width: 75%;
+    cursor: grab;
+}
+
+
+#EntreatyCreationPicture {
+    position: relative;
+    height: 40vh;
+    width: 40vh;
+    background-image: radial-gradient(rgb(125, 125, 125) 50%, rgb(75, 75, 75));
+    background-size: cover;
+    box-shadow: inset .1vw .1vh black, inset -.1vw 0 black, 1vw 1vh 1vh rgba(11, 11, 22, .5);
+
+}
+
+#EntreatyCreationTagsContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    position: relative;
+    height: calc(100% - 40vh);
+    width: 100%;
+    background-image: linear-gradient(rgb(22, 22, 45), rgb(45, 45, 90));
+    box-shadow: var(--fullBoxShadow), 1vw 1vh 1vh rgba(11, 11, 22, .5);
+
+}
+
+
+#EntreatyCreationDescriptionBox {
+    position: absolute;
+    right: 10%;
+    top: 25%;
+    width: 60%;
+    height: 70%;
+    background-image: radial-gradient(circle, rgba(200, 200, 200, .95) 95%, rgba(125, 125, 125, 1));
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow), .5vw 1vh rgb(150, 150, 87),
+    -.5vw 1vh rgb(150, 150, 87), inset 1vw 1vh .1vw rgba(125, 125, 62, .85), inset -1vw -1vh .1vw rgba(125, 125, 62, .85);
+    overflow-y: scroll;
+    scrollbar-width: none;
+    animation: text_animation .75s 1;
+    line-height: 130%;
+    padding-inline: 1vw;
+    box-sizing: border-box;
+
+}
+
+#EntreatyCreationDescriptionBox::-webkit-scrollbar {
+    display: none
+}
+
+
+#EntreatyCreationToolbar {
+    position: absolute;
+    bottom: 75%;
+    right: 10%;
+    width: 60%;
+    height: 10vh;
+    background-image: linear-gradient(to bottom, rgba(125, 125, 125, .5) 50%, rgba(0, 0, 22, .90) 85%);
+    border-radius: 1vh 1vh;
+    box-shadow: var(--fullBoxShadow), 0vw 0vh 0vw 1vh var(--emphasizedPrimaryCol);
+}
+
+
+#EntreatyCreationToolbarOptionContainer {
+    width: 100%;
+    height: 100%;
+    scrollbar-width: none;
+    overflow-y: scroll;
+}
+
+#EntreatyCreationToolbarOptionContainer::-webkit-scrollbar {
+    display: none;
+}
+
+#EntreatyCreationTitleField {
+    font-size: 3vh;
+    right: 25%;
+    width: 40%;
+    text-align: center;
+    resize: none;
+    border: none;
+    box-sizing: border-box;
+}
+
+.ToolbarOption {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 80%;
+    width: 12%;
+    margin-left: 4%;
+    float: left;
+    background-image: var(--optionGradient);
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow);
+    font-size: 2.5vh;
+    font-family: 'Segoe UI';
+    
+}
+
+
+.ToolbarSmallOption {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 50%;
+    width: 5%;
+    margin-left: 4%;
+    float: left;
+    background-image: linear-gradient(rgb(150, 150, 150), rgb(125, 125, 125));
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow);
+    font-size: 2.5vh;
+    font-family: 'Segoe UI';
+    
+}
+
+.ToolbarSmallOption:hover {
+    cursor:grab;
+}
+
+.ToolbarSmallOption[data-paragraph_style="true"] {
+    display: none;
+}
+
+.ToolbarSmallOption[data-paragraph_style="true"][data-revealed="true"] {
+    display: block;
+}
+
+.ToolbarSmallOption[data-hidden="true"] {
+    display: none;
+}
+
+.ToolbarOption[data-dropdown=true] {
+    background-image: linear-gradient(rgb(125, 100, 100), rgb(100, 75, 75));
+}
+
+.ToolbarOption[data-dropdown=true]:hover .ToolbarDropdownOptionContainer {
+    display: block;
+}
+
+.ToolbarOptionSpan {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.5vh;
+    font-family: "Segoe UI";
+    font-weight: 500;
+    width: 100%;
+    left: 0%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-wrap: break-word;
+}
+
+
+.ToolbarLinkInfoSpan {
+    display: none;
+    position: absolute;
+    top: 15%;
+    left: 5%;
+    width: 90%;
+    background-color: grey;
+    z-index: 100;
+}
+
+
+.EntreatyCreationToolbarDropdownOption {
+    position: relative;
+    height: 8vh;
+    width: 100%;
+    float: left;
+    background-color: rgb(100, 100, 100);
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow);
+}
+
+
+.ToolbarDropdownOptionContainer {
+    position: absolute;
+    top: 100%;
+    z-index: 10;
+    width: 15vw;
+    display: none;
+}
+
+
+.ToolbarUrlInputCollection {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+
+}
+
+.ToolbarUrlInputField {
+    position: absolute;
+    bottom: 0%;
+    width: 60%;
+    height: calc(100% - 1vh);
+    left: 20%;
+    font-size: 3vh;
+ }
+
+ 
+ .ToolbarUrlCloseOption {
+    position: absolute;
+    width: 20%;
+    height: 100%;
+    bottom: 0%;
+    left: 0%;
+    border-radius: 1vh 0vh 0vh 1vh;
+    background: var(--optionGradient);
+    box-shadow: var(--fullBoxShadow);
+ }
+
+ .ToolbarSubmitUrlButton {
+    position: absolute;
+    width: calc(20% - 1vh);
+    height: 100%;
+    bottom: 0%;
+    right: 0%;
+    border-radius: 0vh 1vh 1vh 0vh;
+    background: var(--optionGradient);
+    box-shadow: var(--fullBoxShadow);
+ }
+
+
+#EntreatySearchOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+    position: absolute;
+    left: 0vw;
+    height: 100%;
+    width: 13vw;
+    background-color: var(--secondaryCol);
+    text-align: center;
+    box-shadow: inset -.1vw 0 black;
+
+}
+
+.EntreatySearchOption {
+    position: relative;
+    height: 50%;
+    width: 15%;
+    background-image: var(--optionGradient);
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow);
+    cursor: grab;
+}
+
+.EntreatyDropdownSearchOption {
+    position: relative;
+    height: 50%;
+    width: 15%;
+    background-image: var(--optionGradient);
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow);
+    cursor: grab;
+}
+
+#EntreatyDropdownSearchOptions {
+    display: none;
+    flex-direction: column;
+    gap: 5%;
+    position: absolute;
+    z-index: 10;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background-color: var(--secondaryCol);
+    box-shadow: inset -.1vw 0 black;
+    transition: .5s;
+
+}
+
+#EntreatyDropdownSearchOptions[data-revealed="true"] {
+    display: flex;
+}
+#EntreatyDropdownSearchOptions[data-shifted="true"] {
+    left: 0%;
+}
+
+.EntreatyDropdownSearchOption:hover #DropdownContainer {
+    display: flex;
+
+}
+
+#EntreatySearchFilter {
+    padding-inline-end: 5vw 0vw;
+    justify-content: center;
+    position: absolute;
+    height: 10vh;
+    background-color: var(--primaryCol);
+    box-shadow: inset 0 -.1vh black;
+
+}
+
+
+
+#EntreatySearchFilterSpan {
+
+}
+
+#EntreatiesSubcategoriesDropdown {
+    position: relative;
+}
+
+.EntreatySearchBox {
+    position: relative;
+    display: inline-block;
+    margin: 1.25%;
+    margin-bottom: 1.25%;
+    margin-top: none;
+    width: 45%;
+    height: 45%;
+    background-color: grey;
+    border-style: solid;
+    border-width: 2vh;
+    border-image: linear-gradient(to bottom, hsl(calc(var(--chosenHue) - 180), 34%, 37%), 
+        hsl(calc(var(--chosenHue) - 180), 33%, 18%) 90%) 1;
+    outline-style: solid;
+    outline-width: .5vh;
+    outline-color: hsl(calc(var(--chosenHue) - 180), 27%, 46%);
+    overflow: hidden;
+    box-sizing: border-box;
+
+}
+
+.EntreatySearchBox[data-enlarged="true"] {
+    position: relative;
+    top: 0%;
+    margin: none;
+    width: calc(100% - 7.5vh);
+    height: 100%;
+}
+
+
+.EntreatySearchBoxImageSection {
+    width: 20%;
+    height: 20%;
+    background-color:rgb(0, 0, 0);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: .35s;
+}
+
+.EntreatySearchBoxImageSection:hover {
+    width: 100%;
+    height: 100%;
+}
+
+.EntreatySearchBoxImageSection:hover ~.EntreatySearchBoxTitleSection {
+    width: 0%;
+    height: 0%;
+    left: 100%;
+}
+
+.EntreatySearchBoxTitleSection {
+    position: absolute;
+    cursor: url("/public/arrow_cursor.png") 32 24, auto;;
+    top: 0%;
+    left: 20%;
+    width: 80%;
+    height: 20%;
+    background-color: var(--emphasizedPrimaryCol);
+    transition: 0.35s;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    color: var(--secondaryTextCol);
+    text-decoration: solid underline var(--emphasizedComplimentaryCol);
+
+}
+
+.EntreatySearchBoxTitleSection::-webkit-scrollbar {
+    display: none;
+}
+
+.EntreatySearchBoxName {
+    text-decoration: solid underline var(--emphasizedComplimentaryCol);
+    cursor: pointer;
+}
+
+.EntreatySearchBoxName:hover {
+    text-decoration: solid underline var(--emphasizedPrimaryCol);
+    color: var(--emphasizedComplimentaryCol)
+
+}
+
+.EntreatySearchBoxMetaInfo {
+    position: relative;
+    width: 100%;
+    height: 20%;
+    font-size: clamp(18px, 3vmin, 4vh);
+    background: var(--tertiaryCol);
+    overflow-y: scroll;
+    scrollbar-width: none;
+    color: var(--secondaryTextCol);
+}
+
+.EntreatySearchBoxMetaInfo::-webkit-scrollbar {
+    display: none;
+}
+
+.EntreatySearchBoxDescriptionSection {
+    position: relative;
+    width: 100%;
+    height: 60%;
+    background-color: hsl(0, 0%, 75%);
+    transition: .35s;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+.EntreatySearchBoxDescriptionSection::-webkit-scrollbar {
+    display: none;
+}
+
+.EntreatySearchBoxDescriptionSection:hover {
+    height: 80%;
+    cursor: grab;
+}
+
+.EntreatySearchBoxSpan {
+    font-size: clamp(18px, 3vmin, 4vh);
+}
+
+.EntreatySearchBoxDescriptionSection:hover ~.EntreatySearchBoxTitleSection .EntreatySearchBoxMetaInfo {
+    display: none;
+    height: 0%;
+}
+
+
+
+#SpecificEntreatyPageRoot {
+    position: absolute;
+    top: 7.5vh;
+    height: 92.5vh;
+    width: 100%;
+    background-color: rgb(45, 45, 45);
+    transition: .75s;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+#SpecificEntreatyCreateThreadRoot {
+    display: none;
+    position: absolute;
+    top: 7.5vh;
+    height: 92.5vh;
+    width: 100%;
+    opacity: 0;
+    background-color: var(--neutralCol  );
+    transition: .35s;
+}
+
+#SpecificEntreatyCreateThreadRoot[data-open="true"] {
+    display: block;
+    opacity: 1;
+}
+
+
+#EntreatyThreadDescriptionBox {
+    position: absolute;
+    left: 2.5%;
+    top: 22.5vh;
+    width: 95%;
+    height: 75%;
+    background-image: radial-gradient(circle, rgba(200, 200, 200, .95) 95%, rgba(125, 125, 125, 1));
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow), .5vw 1vh rgb(150, 150, 87),
+    -.5vw 1vh rgb(150, 150, 87), inset 1vw 1vh .1vw rgba(125, 125, 62, .85), inset -1vw -1vh .1vw rgba(125, 125, 62, .85);
+    overflow-y: scroll;
+    scrollbar-width: none;
+    animation: text_animation .75s 1;
+    line-height: 130%;
+
+}
+
+#EntreatyThreadToolbar {
+    position: absolute;
+    bottom: 70vh;
+    left: 2.5%;
+    width: 95%;
+    height: 10vh;
+    background-image: linear-gradient(to bottom, rgba(125, 125, 125, .5) 50%, rgba(0, 0, 22, .90) 85%);
+    border-radius: 1vh 1vh;
+    box-shadow: var(--fullBoxShadow), 0vw 0vh 0vw 1vh var(--emphasizedPrimaryCol);
+}
+
+
+.SpecificEntreatyOption {
+    position: relative;
+    top: 10%;
+    margin-right: 1.25%;
+    float: right;
+    width: 15%;
+    height: 80%;
+    background-color: grey;
+    border-radius: 2vh;
+    box-shadow: inset -.1vw -.1vh black, inset .1vw .1vh black;
+    cursor: grab;
+
+}
+
+
+.SpecificEntreatyOption[data-block_collection="true"] {
+    top: 0vh;
+    width: 15vw;
+    height: 8vh;
+    margin: 0;
+}
+
+
+
+#SpecificEntreatyOptionsContainer {
+    height: 10vh;
+    width: 100%;
+    background-color: var(--primaryCol);
+    transition: .75s;
+}
+
+
+#SpecificEntreatyInlineSectionsContainer {
+    display: inline-block;
+    position: relative;
+    width: 60%;
+    height: 100%;
+    left: 0%;
+}
+
+#SpecificEntreatySectionCollectionContainer {
+    display: none;
+}
+
+#SpecificEntreatySectionCollectionContainer {
+    cursor: default;
+}
+
+
+#SpecificEntreatySectionCollectionContainer:hover #SpecificEntreatySectionCollection {
+    display: block;
+}
+
+#SpecificEntreatySectionCollection {
+    display: none;
+    position: absolute;
+    height: 77.5vh;
+    top: 100%;
+    background-color: rgba(112, 112, 112, .5);
+    border-radius: 2vh;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+
+#SpecificEntreatyManagementCollectionContainer:hover #SpecificEntreatyManagementCollection { 
+    display: block;
+}
+
+
+#SpecificEntreatyManagementCollection {
+    z-index: 10;
+    display: none;
+    position: absolute;
+    top: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: none;
+}
+
+#SpecificEntreatyManagementCollection .SpecificEntreatyOption {
+    box-shadow: inset -.1vw -.1vh black, inset .1vw 0vh black;
+}
+
+#SpecificEntreatyThreadsHeader {
+    position: relative;
+    height: 5vh;
+    background-color: var(--emphasizedPrimaryCol);
+    box-shadow: var(--fullBoxShadow);
+    color: var(--secondaryTextCol);
+}
+
+#SpecificEntreatyThreadsContainer {
+    position: relative;
+    height: 77.5vh;
+    width: 1fr;
+    overflow-y: scroll;
+    background-color: var(--neutralCol);
+}
+
+
+.SpecificEntreatyThread {
+    position: relative;
+    box-sizing: border-box;
+    left: .5vh;
+    top: 1.5vh;
+    width: calc(100% - 1vh);
+    height: 20vh;
+    border-style: solid;
+    border-width: 2vh;
+    border-image: linear-gradient(to bottom, rgb(125, 125, 125), rgb(62, 62, 62) 90%) 1;
+    outline-style: solid;
+    outline-width: .5vh;
+    outline-color: rgb(150, 150, 150);
+    margin-bottom: 2.5vh;
+    background-color: rgb(137, 137, 137);
+    cursor: pointer;
+
+}
+
+
+
+.SpecificEntreatyThreadTitle {
+    display: inline-block;
+    position: absolute;
+    top: 0vh;
+    left: 0%;
+    width: 40%;
+    height: 100%;
+    box-shadow: inset -.1vw -.1vh black, inset .1vw .1vh black; 
+    overflow-y: scroll;
+    scrollbar-width: none;
+    
+}
+
+
+.SpecificEntreatyThreadMetadata {
+    display: inline-block;
+    position: absolute;
+    top: 0vh;
+    right: 25%;
+    width: 35%;
+    height: 100%;
+    box-shadow: inset -.1vw -.1vh black, inset .0vw .1vh black;
+    overflow-wrap: break-word;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+
+.SpecificEntreatyThreadRecentData {
+    display: inline-block;
+    position: absolute;
+    top: 0vh;
+    right: 0%;
+    width: 25%;
+    height: 100%;
+    box-shadow: inset -.1vw -.1vh black, inset .0vw .1vh black;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+
+#CreateNewSectionPopup {
+    display: none;
+    z-index: 10;
+    position: absolute;
+    background-color: var(--primaryCol);
+    height: 10vh;
+    width: 100%;
+}
+
+#CreateNewSectionTextArea {
+    position: absolute;
+    top: 2.5vh;
+    left: 25%;
+    margin: 0%;
+    max-height: 5vh;
+    width: 50%;
+    resize: none;
+    text-align: center;
+    font-size: clamp(18px, 3vmin, 4vh);
+}
+
+
+#SpecificEntreatyNoAccessPopup {
+    position: absolute;
+    left: 5%;
+    top: 5%;
+    width: 90%;
+    height: 90%;
+    background-color: grey;
+    border-radius: 2vh;
+    box-shadow: inset -.1vw -.1vh black, inset .1vw .1vh black;
+}
+
+#SpecificEntreatyCreateThreadOptions {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    left: 0%;
+    flex: 1;
+    gap: 5%;
+    align-items: center;
+    background-color: var(--primaryCol);
+    height: 10vh;
+
+}
+
+#SpecificEntreatyCreateThreadOptions::before, #SpecificEntreatyCreateThreadOptions::after {
+    content: "";
+}
+
+#SpecificEntreatyCreateThreadOptions #SpecificEntreatyThreadTitleField {
+    height: 75%;
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+
+#SpecificEntreatyThreadTitleField {
+    position: relative;
+    height: 75%;
+    resize: none;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+
+#EntreatyJoinPageRoot {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--neutralCol);
+
+}
+
+
+
+#PromptOptionsContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5%;
+    justify-content: center;
+    height: 10%;
+    background-color: var(--primaryCol);
+    box-shadow: inset 0 -.1vh black;
+}
+
+
+#PromptContainer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: auto;
+    top: 5%;
+    width: 80%;
+    height: 80%;
+    border-radius: 1vh;
+    background-color: var(--primaryCol);
+    padding: 1%;
+    box-sizing: border-box;
+    box-shadow: var(--fullBoxShadow);
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+#PromptContainer * {
+    flex: 1;
+}
+
+#PromptDescriptionBox {
+    position: relative;
+    background-color: antiquewhite;
+    border-radius: 1vh 1vh 0vh 0vh;
+    box-shadow: var(--fullBoxShadow);
+    max-height: calc(50% - 2.5vh);
+    padding-block-start: 2.5vh;
+    box-sizing: content-box;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+#PromptResponseBox {
+    position: relative;
+    background-color: whitesmoke;
+    box-shadow: inset .1vw .0vh black, inset -.1vw -.1vh black;
+    resize: none;
+    border: none;
+    padding: 0%;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: 3vh;
+}
+
+.PromptSpan {
+    display: block;
+    position: relative;
+    left: 0%;
+    top: 50%;
+    height: 100%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+
+.CategoryButton {
+    z-index: 100;
+    position: relative;
+    left: 0vw;
+    height: 10vh;
+    width: 100%;
+    font-size: 4vmin;
+    color: rgb(0, 0, 0);
+    background-color: var(--emphasizedComplimentaryCol);
+    transition: .45s;
+    border-radius: 1vh;
+    cursor: pointer;
+    box-shadow: var(--fullBoxShadow);
+}
+
+
+.CategoryButton:nth-child(2n)[data-active="true"] {
+    filter: hue-rotate(180deg) saturate(100%);
+    transition: .45s;
+
+}
+
+.CategoryButton:nth-child(2n)[data-active="false"] {
+    filter: hue-rotate(180deg) saturate(0%);
+    transition: .45s;
+
+}
+
+
+.CategoryButton:before {
+    position: absolute;
+    content: "";
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background: var(--optionGradient);
+    clip-path: polygon(0% 100%, 100% 0%, 0% 0% );
+    border-radius: 1vh;
+}
+
+.CategoryButton:nth-child(2n):before {
+    box-shadow: var(--fullBoxShadow);
+    backdrop-filter: hue-rotate(180deg); 
+    clip-path: polygon(100% 0%, 0% 100%, 100% 100%);
+    border-radius: 1vh;
+
+}
+
+
+
+.CategoryButton:after {
+    box-shadow: var(--fullBoxShadow);
+    position: absolute;
+    content: "";
+    left: 0%;
+    top: 0%;
+    width: 100%;
+    height: 100%;
+    border-radius: 1vh;
+}
+
+
+
+
+
+.CategoryButton:hover {
+    transition: .55s .2s, width .55s;
+    width: calc(150% - .1vw);
+}
+
+
+
+
+.CategoryButtonSpan {
+    color: var(--primaryTextCol);
+    position: absolute;
+    text-align: center;
+    left: 0%;
+    width: 100%;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    overflow: hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.CategoryButtonIndicator {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    width: 33%;
+    height: 33%;
+
+}
+.CategoryButtonIndicator::before {
+    position: absolute;
+    top: -50%;
+    right: 5%;
+    transform: translateY(15%);
+    content: "✓";
+    font-size: clamp(24px, 3vmin, 4vh);
+    color: var(--secondaryTextCol);
+}
+
+.CategoryButton[data-active="false"] .CategoryButtonIndicator::before {
+    content: "✘";
+    font-size: clamp(24px, 3vmin, 4vh);
+}
+
+.CategoryButton[data-active="false"] {
+    filter:saturate(0%);
+}
+
+.ImageFace {
+    background-color: black;
+    background-size: 100%;
+    position: absolute;
+    animation: Phase-out;
+    animation-duration: 1.25s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+
+
+}
+
+.VideoFace {
+    background-color: blue;
+    position: absolute;
+
+}
+
+.ScrollContainer {
+    height: 92.5vh;
+    scroll-behavior: smooth;
+    margin-top: 7.5vh;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    background-color: var(--neutralCol);
+
+}
+
+
+.ScrollContainer::-webkit-scrollbar {
+  display: none;
+
+}
+
+.ScrollSection {
+    position: relative;
+    min-height: 92.55vh;
+    overflow-x: hidden;
+    scrollbar-width: none;
+}
+
+
+
+.ScrollSection::-webkit-scrollbar {
+  display: none;
+}
+
+.ScrollSubsection {
+    scroll-snap-align: start;
+    scrollbar-width: none;
+    overflow-y: scroll;
+    height: 100%;
+    scroll-behavior: smooth;
+}
+
+
+
+#ModifyIntroductionContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    top: 5%;
+    height: 80%;
+    width: 75%;
+    margin: auto;
+    border-radius: 1vh;
+    background-color: var(--primaryCol);
+    padding: 1%;
+    box-sizing: border-box; /* this combination of padding and border-box is the equivalent on inset padding */
+    box-shadow: var(--fullBoxShadow);
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+
+#ModifyIntroductionDescriptionArea {
+    height: 40%;
+    width: 100%;
+    background-color: rgb(250, 235, 215);
+}
+
+#ModifyIntroductionPageTextArea {
+    height: 60%;
+    width: 100%;
+    box-shadow: inset .1vw .0vh black, inset -.1vw -.1vh black;
+    resize: none;
+    border: none;
+    padding: 0%;
+    text-align: center;
+    font-size: 3vh;
+    box-sizing: border-box;
+}
+
+
+
+
+
+
+
+@media screen and (max-width:850px) { 
+    #NameSearchText {
+        display: none;
+    }
+    #NameSearchSymbol {
+        display: block;
+    }
+}
+
+
+@media screen and (min-width: 900px) {
+
+    #EntreatiesContainer {
+        left: 13vw;
+        width: 87vw;
+    }
+
+    #EntreatySearchFilter {
+        left: 13vw;
+        width: 87vw;
+    }
+    #EntreatiesCategoriesDropdown {
+        display: none;
+    }
+
+    #EntreatyDropdownSearchOptions {
+        display: none !important;
+    }
+
+    #EntreatyManagementOptions {
+        width: 90%;
+
+    }
+
+    #CurrentEntreatiesSection {
+        left: 10%;
+        width: 90%;
+    }
+
+
+    #CurrentEntreatiesNavigator {
+        left: 61%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
+}
+
+@media screen and (max-width: 900px) {
+
+    #EntreatyDetailsPanel {
+        display: none;
+    }
+
+    #EntreatiesContainer {
+        left: 0vw;
+        width: 100vw;
+    }
+
+    #EntreatySearchFilter {
+        display: flex;
+        flex-direction: row;
+        gap: 10%;
+        left: 0%;
+        width: 100%;
+        
+    }
+
+    #EntreatySearchFilter * {
+        align-self: center;
+    }
+
+    #EntreatySearchOptions {
+        display: none;
+    }
+
+    #EntreatiesCategoriesDropdown {
+        display: block;
+        width: 30%;
+        left: 0%;
+        transition: .5s;
+
+    }
+
+    #EntreatiesCategoriesDropdown[data-shifted="true"] {
+        left: 25%;
+    }
+
+    #EntreatiesSubcategoriesDropdown {
+        width: 30%;
+    }
+
+    .EntreatySearchOption {
+        width: 30%;
+    }
+
+
+    #EntreatyManagementOptions {
+        width: 100%;
+    }
+
+    #CurrentEntreatiesSection {
+        left: 0%;
+        width: 100%;
+    }
+
+    #DetailsPanel {
+        display: none;
+    }
+    
+    #ManagementOptions {
+        width: 100%;
+    }
+    
+}
+
+
+.NavigationSpan {
+    position: relative;
+    float: right;
+    margin-right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-image: var(--optionGradient);
+    text-align: center;
+    font-size: 4vh;
+    padding: 0 .5vw 0 .5vw;
+    border-radius: 10vh;
+    transition: 1.25s;
+    box-shadow: var(--fullBoxShadow);
+
+}
+
+.HeavyDutyNavigationSpan {
+    display: block;
+    position: relative;
+    width: fit-content;
+    margin: auto;
+    background-image: var(--optionGradient);
+    text-align: center;
+    font-size: 4vh;
+    padding: 0 .5vw 0 .5vw;
+    border-radius: 10vh;
+    transition: 1.25s;
+    cursor: pointer;
+    box-shadow: var(--fullBoxShadow);
+}
+
+#HeavyDutyNavigationOptionsContainer {
+    display: none;
+    opacity: 0;
+    height: calc(100% - 10vh);
+    transition: .35s;
+}
+
+@media screen and (max-width:700px) and (min-height: 500px) {
+    .NavigationSpan {
+        font-size: 3.5vh;
+    }
+}
+
+@media screen and (max-width: 800px) and (min-width: 550px) {
+
+    #ProfileCenterSection {
+        width: 75%;
+    }
+
+    #ProfileTraitGaugeContainer {
+        width: 5%;
+        cursor: pointer;
+    }
+
+    
+    #ProfileTraitGaugeContainer:hover {
+        position: absolute;
+        width: 50%;
+        right: 0%;
+    }
+
+
+    #ProfileTraitGaugeContainer:hover + #TraitGaugesStopgap {
+        position: relative;
+        display: inline-block;
+        width: 5%;
+        height: 100%;
+    }
+
+
+
+    #ProfileTraitGaugeContainer:hover #Gauges {
+        display: flex;
+        width: 50vw;
+        right: 0%;
+    }
+
+    
+    #ProfileTraitGaugeContainer:hover #ProfileRevealGaugesArea {
+        display: none;
+    }
+    
+
+    #Gauges {
+        display: none;
+    }
+
+    #ProfileRevealGaugesArea {
+        display: block;
+    }
+
+
+
+}   
+
+@media screen and (max-width: 800px) {
+    .PostPageProfilingContainer {
+        display: none;
+    }
+
+    .PostPageMainPost {
+        min-height: 45vh;
+        max-width: 100%;
+    }
+
+    .PostBoxTitleDiv {
+        left: 0%;
+        width: 100%;
+        box-shadow: none;
+    }
+
+    .PostBoxDateDiv {
+        top: 5vh;
+        left: 0%;
+        width: 66%;
+        text-align: left;
+        box-shadow: inset 0 -.1vh black;
+    }
+
+    .PostBoxCommentsDiv {
+        top: 5vh;
+        width: 34%;
+        box-shadow: inset 0 -.1vh black;
+    }
+
+    .PostContentDiv {
+        top: 10vh;
+    }
+
+    .PostBox {
+        min-height: 30vh;
+        width: 100%;
+    }
+
+    #EntreatiesCategoriesDropdown[data-shifted="true"] {
+        left: 30%;
+    }
+    
+    #CurrentEntreatiesNavigator {
+        left: 5%;
+        transition: .5s;
+    }
+
+    #CurrentEntreatiesNavigator[data-mobile_shifted="true"] {
+        left: 20%;
+    }
+
+}
+
+    
+@media screen and (max-width: 650px) {
+    #HamburgerNavigationBar {
+        display: block;
+    }
+
+    #NavigationBar, #HeavyDutyNavigationBar {
+        display: none;
+    }
+
+    .RegisterPageInputSection {
+        left: 2.5%;
+        width: 95%;
+    }
+
+
+    #RegisterSubmitButton {
+        left: 37.5%;
+        width: 25%;
+    }
+
+    #EntreatyDetailsPanel {
+        display: none;
+    }
+
+    #EntreatiesContainer {
+        left: 0vw;
+        width: 100vw;
+    }
+
+    .EntreatyManagementOption {
+        width: 20%;
+    }
+
+    #EntreatySearchFilter {
+        left: 0%;
+        width: 100%;
+    }
+
+    #EntreatySearchOptions {
+        display: none;
+    }
+
+    #EntreatiesCategoriesDropdown {
+        display: block;
+    }
+    
+    .EntreatySearchBox {
+        margin-left: 0;
+        margin-right: 0;
+        min-width: calc(100% - 1vh);
+        border-width: .5vh;
+    }
+
+
+    .SpecificEntreatyOption {
+        width: 30%;
+    }
+
+    #ProfileNameSearch {
+        width: 45%;
+    }
+
+    #ProfileInterestsSearch {
+        left: 55%;
+    }
+
+    #ProfileAvatarAndAchievementArea {
+        width: 100%;
+
+
+    }
+
+    #ProfileBox {
+        height: 50vh;
+    }
+
+        
+    #ProfileAchievementBox {
+        height: 10vh;
+    }
+
+    
+
+
+    .ProfileOption {
+        top: 25%;
+        height: 50%;
+        width: 10vw;
+    }
+
+    .EntreatySearchBox {
+        width: 85%;
+    }
+
+    #EntreatyCreationToolbarOptionContainer  {
+        overflow-x: scroll;
+    }
+
+    .ToolbarOption {
+        margin-bottom: 5%;
+        width: 15vw;
+        height: 50%;
+    }
+
+    .ToolbarSmallOption {
+        margin-bottom: 5%;
+        width: 10vw;
+        height: 50%;
+    }
+
+    #ProfilePagePage {
+        flex-direction: column;
+        max-height: none;
+    }
+
+
+    #ProfileCenterSection {
+        width: 100%;
+        height: 150vh;
+        max-height: none;
+        margin-bottom: 0;
+    }
+
+
+    #ProfileDescriptionBox {
+        font-size: 18px;
+        left: 0%;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #ProfileToolbar {
+        left: 0%;
+        width: 100%;
+        box-sizing: border-box;
+
+    }
+
+    #ProfileTraitGaugeContainer {
+        position: relative;
+        height: 7.5vh;
+        width: 100%;
+        
+    }
+    
+
+    #ProfileTraitGaugeContainer:hover #Gauges {
+        display: flex;
+        width: 50vw;
+        right: 0%;
+    }
+
+    #Gauges {
+        display: none;
+        position: absolute;
+        top: -750%;
+        height: 750%;
+        width: 50%;
+        background-color: wheat;
+    }
+
+    .ProfileTraitGauge {
+    }
+
+    #ProfileRevealGaugesArea {
+        display: block; 
+    }
+
+    #ModifyIntroductionContainer {
+        width: 95%;
+    }
+
+}
+
+@media screen and (min-width: 650px) {
+
+
+    
+}
+
+
+@media screen and (max-width: 550px) {
+
+    .StandardOption {
+        width: 25%;
+    }
+
+    #ProfileSearchBoxesContainer {
+        width: 100%;
+    }
+    
+    .ProfileSearchBox {
+        height: 60%;
+    }
+
+    .ProfileSearchBoxAvatarContainer {
+        width: 38%;
+        height: 25%;
+    }
+
+
+    .ProfileSearchBoxNameSection {
+        left: 38%;
+        top: 0%;
+        width: 62%;
+        height: 25%;
+    }
+
+    .ProfileSearchBoxDescriptionSection {
+        left: 0%;
+        top: 25%;
+        width: 100%;
+        height: 75%;
+    }
+
+    #ProfilePagePage {
+        flex-direction: column;
+        max-height: none;
+    }
+
+
+    #ProfileCenterSection {
+        width: 100%;
+        height: 150vh;
+        max-height: none;
+        margin-bottom: 0;
+    }
+
+
+    #ProfileDescriptionBox {
+        font-size: 18px;
+        left: 0%;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #ProfileToolbar {
+        left: 0%;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-y: scroll;
+
+    }
+
+    #ProfileTraitGaugeContainer {
+        position: relative;
+        height: 7.5vh;
+        width: 100%;
+        
+    }
+
+    #ProfileRevealGaugesArea {
+        background: url(static/images/upward_arrow.png);
+        background-size: contain;
+        background-position: center;
+        background-repeat: repeat-x;
+    }
+    
+
+    #ProfileTraitGaugeContainer:hover #Gauges {
+        display: flex;
+        width: 50vw;
+        right: 0%;
+    }
+
+
+    #Gauges {
+        display: none;
+        position: absolute;
+        top: -750%;
+        height: 750%;
+        width: 50%;
+        background-color: wheat;
+    }
+
+    #Gauges[data-revealed="true"] {
+        display: flex;
+        width: 50vw;
+        right: 0%;
+    }
+
+    #ProfileTraitGaugeContainer[data-expanded="true"] .ProfileTraitGaugeTooltip {
+        display: block;
+    } 
+
+    #ProfileTraitGaugeContainer[data-expanded="true"] #Gauges::before {
+        position: absolute;
+        left: -50vw;
+        display: block;
+        content: "";
+        width: 50vw;
+        height: 100%;
+        background-color: #282c34;
+    } 
+
+    #ProfileRevealGaugesArea {
+        display: block; 
+    }
+
+    #ProfileOptionsBox {
+        display: flex;
+        gap: 5%;
+        align-items: center;
+        justify-items: center;
+    }
+
+    .ProfileOption {
+        margin: 0;
+        top: 0%;
+        align-self: center;
+        float: none;
+        width: 25%;
+    }
+    
+
+    #PostPageSubthreadsContainer {
+        left: -1vh;
+        width: calc(100vw - 1vh);
+        max-width: calc(100vw - 1vh);
+    }    
+
+    #PostPageSubthreadsContainer:hover, #PostPageSubthreadsContainer[data-expanded="true"] {
+        left: -1vh;
+        width: calc(100vw - 1vh);
+        max-width: calc(100vw - 1vh);
+    }    
+
+    #PostPageCreateSubjectBox {
+        width: 98%;
+    }
+}
