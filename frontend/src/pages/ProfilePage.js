@@ -95,7 +95,7 @@ function ProfilePage(props){
             const profile_avatar_box = document.getElementById("ProfileBox");
 
             if (output["avatar"] != null) {
-                profile_avatar_box.style.backgroundImage = `url(/avatars/${output["avatar"]})`;
+                profile_avatar_box.style.backgroundImage = `url(/avatars/${output["avatar"]})/`;
             
             }
 
