@@ -19,7 +19,9 @@ function expand_subject(subject_id) {
     const subject_container = document.getElementById("SubjectContainer");
     const create_subject_box = document.getElementById("PostPageCreateSubjectBox");
 
-    create_subject_box.style.display = "none";
+    if (create_subject_box != undefined) {
+        create_subject_box.style.display = "none";
+    }
     selected_subject_div.style.display = "block";
     //root.style.height = 0;
     subthreads_container.dataset.locked = "true";
@@ -59,7 +61,9 @@ function close_subject(subject_id) {
     const subject_container = document.getElementById("SubjectContainer");
     const create_subject_box = document.getElementById("PostPageCreateSubjectBox");
 
-    create_subject_box.style.display = "block";
+    if (create_subject_box != undefined) {
+        create_subject_box.style.display = "block";
+    }
     selected_subject_div.style.display = "none";
     //root.style.height = "100vh";
     subthreads_container.dataset.locked = "false";

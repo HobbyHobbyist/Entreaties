@@ -66,9 +66,11 @@
 
 html {
     scrollbar-width: none;
-
 }
 
+html::-webkit-scrollbar {
+    display: none;
+}
 
 .App-header {
   background-color: #282c34;
@@ -1634,6 +1636,10 @@ html {
     scrollbar-width: none;
 }
 
+#SubjectContainer::-webkit-scrollbar {
+    display: none;
+}
+
 #SubjectContainer[data-unleashed="true"] {
     background-color: rgb(102, 102, 102);
 
@@ -2043,6 +2049,8 @@ html {
     height: 80%;
     background-color: rgb(45, 45, 60);
     overflow-y: scroll;
+    word-wrap: break-word;
+    word-break: break-all;
 
 }
 
@@ -2929,6 +2937,10 @@ html {
     scrollbar-width: none;
 }
 
+#SpecificEntreatyPageRoot::-webkit-scrollbar {
+    display: none;
+}
+
 #SpecificEntreatyCreateThreadRoot {
     display: none;
     position: absolute;
@@ -3454,6 +3466,10 @@ html {
     scroll-behavior: smooth;
 }
 
+
+.ScrollSubsection::-webkit-scrollbar {
+    display: none;
+}
 
 
 #ModifyIntroductionContainer {
