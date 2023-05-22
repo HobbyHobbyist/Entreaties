@@ -18,7 +18,7 @@ import { DummyPost } from "../components/PostVariants.js";
 import { AppContext } from "../context.js";
 
 async function get_posts_from_profile_name(profile_name) {
-    return fetch(`/posts/${profile_name}/`,
+    return fetch(`/flask/posts/${profile_name}/`,
     {method: "GET",
     credentials: "include",
     mode: "cors",}).then(response => response.json().then((output) =>
@@ -60,7 +60,7 @@ function ExternalProfilePage(props){
             
         }
 
-        fetch(`/profiling/all/${params.profile_name}/`,
+        fetch(`/flask/profiling/all/${params.profile_name}/`,
         {method: "GET",
         credentials: "include",
         mode: "cors",
@@ -76,7 +76,7 @@ function ExternalProfilePage(props){
 
 
         if (output["avatar"] != null) {
-            profile_avatar_box.style.backgroundImage = `url(/avatars/${output["avatar"]}/)`;
+            profile_avatar_box.style.backgroundImage = `url(/flask/avatars/${output["avatar"]}/)`;
         
         }
 

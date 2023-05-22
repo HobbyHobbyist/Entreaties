@@ -88,7 +88,7 @@ export function save_pinned_statuses() {
     }
     console.log(pin_groupings);
     form.append("modified_pinnings", JSON.stringify(pin_groupings));
-    fetch("/self/entreaty_management/pin_entreaties/", 
+    fetch("/flask/self/entreaty_management/pin_entreaties/", 
         {method: "POST", body: form, credentials: "include", mode: "cors", 
         headers: {'Accept': 'application/json', 'Access-Control-Allow-Origin': '*',
         "Access-Control-Allow-Credentials": true} 

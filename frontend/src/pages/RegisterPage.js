@@ -31,7 +31,7 @@ function validate_registration() {
 
     let form = new FormData();
     form.append("email", email); form.append("password", password); form.append("profile_name", profile_name);
-    const target = fetch('/register/',
+    const target = fetch('/flask/register/',
     {method: "POST",
     credentials: "include",
     mode: "cors",

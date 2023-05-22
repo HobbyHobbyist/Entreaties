@@ -4,7 +4,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom"
 function join_entreaty(entreaty_id) {
     let form = new FormData();
     form.append("intent", "join")
-    return fetch(`/self/entreaty_admission_post/${entreaty_id}/`, {
+    return fetch(`/flask/self/entreaty_admission_post/${entreaty_id}/`, {
         method: "POST",
         credentials: "include",
         body: form,
@@ -22,7 +22,7 @@ export function EntreatyJoinPage() {
     const [openAccess, setOpenAccess] = useState();
     const [joinPrompt, setJoinPrompt] = useState();
     useEffect(() => {
-        fetch(`/entreaty_admission_info/${params.entreaty_id}/`, {
+        fetch(`/flask/entreaty_admission_info/${params.entreaty_id}/`, {
             method: "GET",
             credentials: "include",
             mode: 'cors',

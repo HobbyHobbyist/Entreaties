@@ -239,7 +239,7 @@ async function submit_entreaty(entreaty_document) {
         form.append("cover", entreaty_cover_blob);
         alert("got a cover")
     }
-    return fetch("self/entreaty_management/create_entreaty/", {
+    return fetch("/flask/self/entreaty_management/create_entreaty/", {
         method: "POST",
         body: form, 
         credentials: "include",
@@ -318,7 +318,7 @@ function close_entreaty_creation_section() {
 };
 
 async function get_entreaties(sought) {
-    return fetch(`/entreaties/${sought}/`, {
+    return fetch(`/flask/entreaties/${sought}/`, {
         method: "GET",
         mode: "cors",
         credentials: "include",
@@ -328,7 +328,7 @@ async function get_entreaties(sought) {
 };
 
 async function get_joined_entreaties() {
-    return fetch("self/entreaties/", {
+    return fetch("/flask/self/entreaties/", {
         method: "GET",
         mode: "cors",
         credentials: "include",

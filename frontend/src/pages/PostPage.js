@@ -8,7 +8,7 @@ import html_parser from "../utils/html_parser.js";
 import { AppContext } from "../context";
 
 async function get_post_info_from_profile_name_and_post_id(profile_name, post_id) {
-    return fetch(`/posts/${profile_name}/${post_id}/`,
+    return fetch(`/flask/posts/${profile_name}/${post_id}/`,
     {method: "GET",
     credentials: "include",
     mode: "cors",}).then(response => response.json().then((output) =>
@@ -21,7 +21,7 @@ async function get_post_info_from_profile_name_and_post_id(profile_name, post_id
 
 
 async function get_subjects_from_post_id( post_id) {
-    return fetch(`/subjects/${post_id}/`,
+    return fetch(`/flask/subjects/${post_id}/`,
     {method: "GET",
     credentials: "include",
     mode: "cors",}).then(response => response.json().then((output) =>
@@ -54,7 +54,7 @@ async function submit_subject(e, post_id) {
      form.append("subject_content", subject_content); 
     form.append("parent_post", post_id);
 
-    fetch('/self/subjects/create_subject/',
+    fetch('/flask/self/subjects/create_subject/',
     {method: "POST",
     credentials: "include",
     mode: "cors",
@@ -89,7 +89,7 @@ function PostPage(props){
     const {logged_in, change_logged_in_state} = useContext(AppContext);
 
     useEffect(() => {   
-        fetch(`/profiling/avatar/${params.profile_name}/`,
+        fetch(`/flask/profiling/avatar/${params.profile_name}/`,
         {method: "GET",
         credentials: "include",
         mode: "cors"}).then((response) => response.json().then(output => 
@@ -99,7 +99,7 @@ function PostPage(props){
 
         if (output["avatar"] != null) {
             const profile_avatar_box = document.getElementById("PostPageMainAvatar");
-            profile_avatar_box.style.backgroundImage = `url(/avatars/${output["avatar"]}`;
+            profile_avatar_box.style.backgroundImage = `url(/flask/avatars/${output["avatar"]}`;
            
         }
         

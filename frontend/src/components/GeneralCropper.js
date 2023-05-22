@@ -29,7 +29,7 @@ async function get_avatar_file() {
     
     console.log(form);
 
-    return fetch("/self/update_profiling/avatar/",
+    return fetch("/flask/self/update_profiling/avatar/",
     {method: "POST",
     credentials: "include",
     mode: "cors",
@@ -41,43 +41,6 @@ async function get_avatar_file() {
     return output;
 
     }))
-  };
-};
-
-
-async function get_entreaty_cover_file() {
-  
-  const save_button = document.getElementById("SaveButton");
-  if (save_button.dataset.clicked == "false") {
-    save_button.dataset.clicked = "clicked";
-
-    const image_holder = document.getElementById("CroppedImage");
-    const entreaty_cover = image_holder.style.backgroundImage;
-    var form = new FormData();
-    console.log(entreaty_cover);
-
-    const isolated_base64_info = entreaty_cover.split("base64,")[1];
-    
-    var blob = new Blob([isolated_base64_info]);
-
-
-    form.append("entreaty_cover", blob); form.append("intent", "update_entreaty_cover");
-    form.append("base", "base64");
-    
-    console.log(form);
-
-    return fetch("/flask/entreaty_manipulation",
-    {method: "POST",
-    credentials: "include",
-    mode: "cors",
-    headers: {'Accept': 'application/json', 'Access-Control-Allow-Origin': '*',
-            "Access-Control-Allow-Credentials": true},
-    body: form}).then(response => response.json().then((output) =>
-        {
-        console.log(output);
-        return output;
-
-        }))
   };
 };
 

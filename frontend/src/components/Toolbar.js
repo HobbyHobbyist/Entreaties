@@ -78,7 +78,7 @@ function save_biography_document(bio_doc) {
   var form = new FormData();
         form.append("biography", jsonfied_document);
 
-        fetch("self/update_profiling/biography/",
+        fetch("/flask/self/update_profiling/biography/",
         {method: "POST",
         credentials: "include",
         mode: "cors",

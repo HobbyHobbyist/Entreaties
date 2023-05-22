@@ -11,7 +11,7 @@ function save_and_exit() {
         form.append(targetInterest.id, targetInterest.dataset.status);
     }
     console.log(form);
-    fetch("/self/update_profiling/interests/",
+    fetch("/flask/self/update_profiling/interests/",
     {method: "POST",
     body: form,
     credentials: "include",
@@ -34,7 +34,7 @@ function cancel() {
 export function InterestsPage() {
     const [tags, set_tags] = useState(null);
     useEffect(() => {
-    fetch("/self/profiling/interests/",
+    fetch("/flask/self/profiling/interests/",
     {method: "GET",
     credentials: "include",
     mode: "cors",

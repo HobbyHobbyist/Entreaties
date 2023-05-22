@@ -533,8 +533,8 @@ class EntreatySectionsGetter(Resource):
             cursor.execute("SELECT Profile_ID FROM Entreaty_Members WHERE Profile_ID = %s AND Entreaty_ID = %s LIMIT 1", 
                        (user, entreaty_id))
             output = cursor.fetchall()
-            cursor.close()
             if len(output) < 1:
+                cursor.close()
                 return app.make_response({"result": "the entreaty is not open access"})
             allowed = True
 
@@ -943,50 +943,50 @@ class EntreatyCoverGetter(Resource):
 
 
 
-api.add_resource(RegistrationHandler, "/register/")
-api.add_resource(LoginHandler, "/login/")
+api.add_resource(RegistrationHandler, "/flask/register/")
+api.add_resource(LoginHandler, "/flask/login/")
 
-api.add_resource(ImpersonalProfilingGetter, "/profiling/<target>/<profile_name>/")
-api.add_resource(PersonalProfilingGetter, "/self/profiling/<target>/")
-api.add_resource(PersonalProfilingSetter, "/self/update_profiling/<target>/")
+api.add_resource(ImpersonalProfilingGetter, "/flask/profiling/<target>/<profile_name>/")
+api.add_resource(PersonalProfilingGetter, "/flask/self/profiling/<target>/")
+api.add_resource(PersonalProfilingSetter, "/flask/self/update_profiling/<target>/")
 
-api.add_resource(PersonalPersonalitySetter, "/self/rate_personality/<target_name>/")
-api.add_resource(PersonalPersonalityGetter, "/self/get_rated_personality/<target_name>/")
+api.add_resource(PersonalPersonalitySetter, "/flask/self/rate_personality/<target_name>/")
+api.add_resource(PersonalPersonalityGetter, "/flask/self/get_rated_personality/<target_name>/")
 
-api.add_resource(AvatarImageGetter, "/avatars/<target>/")
-
-
-api.add_resource(ProfileSearchGetter, "/profile_search/<target>/<search_string>/")
-
-api.add_resource(PersonalPostGetter, "/self/posts/<target>/")
-api.add_resource(PostGetter, "/posts/<profile_name>/")
-api.add_resource(PersonalPostSetter, "/self/post_management/<target>/")
-api.add_resource(TargetedPostGetter, "/posts/<profile_name>/<post_id>/")
-
-api.add_resource(SubjectGetter, "/subjects/<post_id>/")
-api.add_resource(PersonalSubjectSetter, "/self/subjects/<target>/")
-
-api.add_resource(CommentGetter, "/comments/<subject_id>/")
-api.add_resource(PersonalCommentSetter, "/self/comments/<target>/")
-
-api.add_resource(ImpersonalEntreatyGetter, "/entreaties/<target>/")
-api.add_resource(PersonalEntreatyGetter, "/self/entreaties/")
-api.add_resource(PersonalEntreatySetter, "/self/entreaty_management/<objective>/")
-
-api.add_resource(EntreatyCoverGetter, "/entreaty_covers/<target>/")
+api.add_resource(AvatarImageGetter, "/flask/avatars/<target>/")
 
 
-api.add_resource(EntreatySectionsGetter, "/entreaty_sections/<entreaty_id>/")
-api.add_resource(EntreatySectionCreator, "/create_entreaty_section/<entreaty_id>/")
+api.add_resource(ProfileSearchGetter, "/flask/profile_search/<target>/<search_string>/")
 
-api.add_resource(EntreatySectionThreadsGetter, "/entreaty_section_threads/<entreaty_id>/<section_id>/")
-api.add_resource(EntreatySectionThreadCreator, "/create_entreaty_thread/<entreaty_id>/<section_id>/")
+api.add_resource(PersonalPostGetter, "/flask/self/posts/<target>/")
+api.add_resource(PostGetter, "/flask/posts/<profile_name>/")
+api.add_resource(PersonalPostSetter, "/flask/self/post_management/<target>/")
+api.add_resource(TargetedPostGetter, "/flask/posts/<profile_name>/<post_id>/")
 
-api.add_resource(ImpersonalEntreatyAdmissionGetter, "/entreaty_admission_info/<entreaty_id>/")
-api.add_resource(PersonalEntreatyAdmissionGetter, "/self/entreaty_admission/<entreaty_id>/")
-api.add_resource(PersonalEntreatyAdmissionSetter, "/self/entreaty_admission_post/<entreaty_id>/")
+api.add_resource(SubjectGetter, "/flask/subjects/<post_id>/")
+api.add_resource(PersonalSubjectSetter, "/flask/self/subjects/<target>/")
 
-api.add_resource(PersonalReactionHandler, "/self/reactions/<target>/")
+api.add_resource(CommentGetter, "/flask/comments/<subject_id>/")
+api.add_resource(PersonalCommentSetter, "/flask/self/comments/<target>/")
+
+api.add_resource(ImpersonalEntreatyGetter, "/flask/entreaties/<target>/")
+api.add_resource(PersonalEntreatyGetter, "/flask/self/entreaties/")
+api.add_resource(PersonalEntreatySetter, "/flask/self/entreaty_management/<objective>/")
+
+api.add_resource(EntreatyCoverGetter, "/flask/entreaty_covers/<target>/")
+
+
+api.add_resource(EntreatySectionsGetter, "/flask/entreaty_sections/<entreaty_id>/")
+api.add_resource(EntreatySectionCreator, "/flask/create_entreaty_section/<entreaty_id>/")
+
+api.add_resource(EntreatySectionThreadsGetter, "/flask/entreaty_section_threads/<entreaty_id>/<section_id>/")
+api.add_resource(EntreatySectionThreadCreator, "/flask/create_entreaty_thread/<entreaty_id>/<section_id>/")
+
+api.add_resource(ImpersonalEntreatyAdmissionGetter, "/flask/entreaty_admission_info/<entreaty_id>/")
+api.add_resource(PersonalEntreatyAdmissionGetter, "/flask/self/entreaty_admission/<entreaty_id>/")
+api.add_resource(PersonalEntreatyAdmissionSetter, "/flask/self/entreaty_admission_post/<entreaty_id>/")
+
+api.add_resource(PersonalReactionHandler, "/flask/self/reactions/<target>/")
 
 if __name__ == "__main__":
     app.run(threaded=False)

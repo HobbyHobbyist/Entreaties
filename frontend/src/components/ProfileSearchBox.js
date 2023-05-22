@@ -5,7 +5,7 @@ export function ProfileSearchBox(props) {
 <div className="ProfileSearchBox" onClick={() => props.navigate()}>
         <div className="ProfileSearchBoxAvatarContainer" >
             <div className="ProfileSearchBoxAvatar" 
-            style={{backgroundImage: (props.profile_avatar != null) ? `url(avatars/${props.profile_avatar}/)`: null, 
+            style={{backgroundImage: (props.profile_avatar != null) ? `url(/flask/avatars/${props.profile_avatar}/)`: null, 
             backgroundRepeat: "no-repeat"}}></div>    
         </div> 
         <div className="ProfileSearchBoxNameSection">{props.profile_name}</div>

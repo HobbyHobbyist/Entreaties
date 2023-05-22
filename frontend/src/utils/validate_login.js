@@ -11,7 +11,7 @@ async function validate_login(email_field_id, password_field_id){
     const password = password_field.value;
     form.append("email", email); form.append("password", password);
 
-    return fetch("/login/",
+    return fetch("/flask/login/",
     {method: "POST",
     headers: {'Accept': 'application/json', 'Access-Control-Allow-Origin': '*'},
     body: form}).then(response => response.json()).then(output => {

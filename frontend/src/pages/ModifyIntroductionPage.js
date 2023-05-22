@@ -16,7 +16,7 @@ function ModifyIntroductionPage(props){
         navigate("/Profile");
         let form = new FormData();
         form.append("introduction", document.getElementById("ModifyIntroductionPageTextArea").value);
-        fetch("/self/update_profiling/introduction/", {
+        fetch("/flask/self/update_profiling/introduction/", {
             method: "POST",
             body: form
         })

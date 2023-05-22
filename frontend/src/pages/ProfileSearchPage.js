@@ -7,7 +7,7 @@ import ProfileSearchBox from "../components/ProfileSearchBox.js";
 
 
 async function get_profiles(filter_targets, search_string) {
-    return fetch(`/profile_search/${filter_targets}/${search_string}/`, 
+    return fetch(`/flask/profile_search/${filter_targets}/${search_string}/`, 
     {
         method: "GET",
         mode: "cors"

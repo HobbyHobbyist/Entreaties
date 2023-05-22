@@ -30,7 +30,7 @@ function upload_avatar_image() {
 
 
 async function get_posts_from_user() {
-    return fetch('/self/posts/posts/',
+    return fetch('/flask/self/posts/posts/',
     {method: "GET",
     credentials: "include",
     mode: "cors",
@@ -80,7 +80,7 @@ function ProfilePage(props){
                 
             }
 
-            fetch('/self/profiling/all/',
+            fetch('/flask/self/profiling/all/',
             {method: "GET",
             credentials: "include",
             mode: "cors",
@@ -95,7 +95,7 @@ function ProfilePage(props){
             const profile_avatar_box = document.getElementById("ProfileBox");
 
             if (output["avatar"] != null) {
-                profile_avatar_box.style.backgroundImage = `url(/avatars/${output["avatar"]})/`;
+                profile_avatar_box.style.backgroundImage = `url(/flask/avatars/${output["avatar"]}/)`;
             
             }
 

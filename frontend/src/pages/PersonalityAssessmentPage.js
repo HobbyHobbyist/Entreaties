@@ -45,7 +45,7 @@ function save_function(profile_name) {
     console.log(traits);
     console.log("above");
 
-    fetch(`/self/rate_personality/${profile_name}/`, {
+    fetch(`/flask/self/rate_personality/${profile_name}/`, {
         method: "POST",
         credentials: "include",
         body: form,

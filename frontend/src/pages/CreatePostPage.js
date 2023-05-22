@@ -69,7 +69,7 @@ export function CreatePostPage() {
         var form = new FormData;
         form.append("intent", "get_draft"); form.append("draft_id", selected_draft.id);
 
-        return fetch('/flask/posts',
+        return fetch('/flask/posts/',
         {method: "POST",
         credentials: "include",
         mode: "cors",
@@ -100,7 +100,7 @@ export function CreatePostPage() {
               form.append("draft_content", jsonfied_document); form.append("draft_id", selected_draft.id);
               form.append("draft_title", draft_title);
       
-              fetch('/flask/posts',
+              fetch('/flask/posts/',
               {method: "POST",
               credentials: "include",
               mode: "cors",
@@ -123,7 +123,7 @@ export function CreatePostPage() {
             form.append("draft_content", jsonfied_document); form.append("draft_id", selected_draft.id);
             form.append("draft_title", draft_title);
     
-            fetch('/self/post_management/create_post/',
+            fetch('/flask/self/post_management/create_post/',
             {method: "POST",
             credentials: "include",
             mode: "cors",
@@ -142,7 +142,7 @@ export function CreatePostPage() {
     var form = new FormData;
 
     useEffect(() => {
-        fetch('/self/posts/drafts/',
+        fetch('/flask/self/posts/drafts/',
         {method: "GET",
         credentials: "include",
         mode: "cors",

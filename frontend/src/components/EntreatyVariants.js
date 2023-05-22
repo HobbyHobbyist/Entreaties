@@ -42,7 +42,7 @@ export function EntreatySearchBox({on_click_function, ...props}){
     return (
     <div className="EntreatySearchBox" key={props.entreaty_id}>
         <div className="EntreatySearchBoxImageSection" 
-        style={{backgroundImage: props.entreaty_cover ? `url(${"entreaty_covers/" + props.entreaty_cover})`: null}}
+        style={{backgroundImage: props.entreaty_cover ? `url(${"/flask/entreaty_covers/" + props.entreaty_cover}/)`: null}}
         onClick={(event) => enlarge_entreaty(event)}></div>
         <div className="EntreatySearchBoxDescriptionSection" onClick={(event) => enlarge_entreaty(event)}>
             <span className="EntreatySearchBoxSpan">
@@ -103,7 +103,7 @@ data-date={props.entreaty_date} onClick={(e) => props.on_click_function(e)}>
         <span className="StandardSpan">{props.entreaty_title}</span>
     </div>
     <div className="EntreatyViewBoxImageSection"
-    style={{backgroundImage: props.entreaty_cover ? `url(${"entreaty_covers/" + props.entreaty_cover})`: null}}></div>
+    style={{backgroundImage: props.entreaty_cover ? `url(${"/flask/entreaty_covers/" + props.entreaty_cover}/)`: null}}></div>
 </div>
     )
 }

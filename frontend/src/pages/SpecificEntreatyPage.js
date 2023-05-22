@@ -29,7 +29,7 @@ function create_section(entreaty_id) {
     const section_name_holder = document.getElementById("CreateNewSectionTextArea");
     form.append("section_name", section_name_holder.value);
 
-    return fetch(`/create_entreaty_section/${entreaty_id}/`, {
+    return fetch(`/flask/create_entreaty_section/${entreaty_id}/`, {
     method: "POST",
     body: form, 
     credentials: "include",
@@ -82,7 +82,7 @@ function submit_entreaty_thread(entreaty_thread_content, parent_entreaty, parent
     form.append("title", title_container.value);
     form.append("entreaty_thread_content", jsonfied_document);
 
-    return fetch(`/create_entreaty_thread/${parent_entreaty}/${parent_section}/`, {
+    return fetch(`/flask/create_entreaty_thread/${parent_entreaty}/${parent_section}/`, {
         method: "POST",
         body: form
     });
@@ -90,7 +90,7 @@ function submit_entreaty_thread(entreaty_thread_content, parent_entreaty, parent
 
 
 async function get_section_threads(entreaty_id, section_id) {
-    return fetch(`/entreaty_section_threads/${entreaty_id}/${section_id}/`).then((output) => output.json().//
+    return fetch(`/flask/entreaty_section_threads/${entreaty_id}/${section_id}/`).then((output) => output.json().//
     then(response =>
         {
             return response
@@ -168,7 +168,7 @@ export function SpecificEntreatyPage() {
         let inline_collection = [];
         let block_collection = [];
         let tempMemberStatus = null;
-        fetch(`/self/entreaty_admission/${params.entreaty_id}/`).then((res) => res.json().then((jsonRes) => {
+        fetch(`/flask/self/entreaty_admission/${params.entreaty_id}/`).then((res) => res.json().then((jsonRes) => {
             if (jsonRes.member_status == "is a member") {
                 setMemberStatus(true);
                 tempMemberStatus = true;
@@ -185,7 +185,7 @@ export function SpecificEntreatyPage() {
                 alert("error at member status check");
             }
 
-            fetch(`/entreaty_sections/${params.entreaty_id}/`, {
+            fetch(`/flask/entreaty_sections/${params.entreaty_id}/`, {
                 method: "GET",
                 mode: "cors",
                 credentials: "include",

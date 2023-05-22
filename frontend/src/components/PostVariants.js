@@ -77,7 +77,7 @@ function close_subject(subject_id) {
 };
 
 async function get_comments_from_subject_id(subject_id) {
-    return fetch(`/comments/${subject_id}/`,
+    return fetch(`/flask/comments/${subject_id}/`,
     { 
         method: "GET", credentials: "include", mode: "cors"
     }).then((response) => response.json().then((output) => {return output}));
@@ -90,7 +90,7 @@ async function submit_subject(post_id) {
     const form = new FormData();
     form.append("subject_content", subject_content); form.append("parent_post", post_id)
 
-    return fetch('/self/subjects/create_subject/',
+    return fetch('/flask/self/subjects/create_subject/',
     {method: "POST",
     credentials: "include",
     mode: "cors",
@@ -112,7 +112,7 @@ function submit_comment(post_id, subject_id, comment_doc) {
     form.append("parent_post", post_id); form.append("parent_subject", subject_id);
     form.append("comment_content", jsonfied_document);
   
-    fetch("/self/comments/create_comment/", {
+    fetch("/flask/self/comments/create_comment/", {
       method: "POST",
       credentials: "include",
       mode: "cors",
@@ -132,7 +132,7 @@ function react_to(root_id, reaction_name, reaction_image, target_category) {
     var form = new FormData();
     form.append("intent", "react_to"); form.append("reaction", reaction_name); form.append("id", root_id);
   
-    fetch(`/self/reactions/${target_category}/`, {
+    fetch(`/flask/self/reactions/${target_category}/`, {
       method: "POST",
       credentials: "include",
       mode: "cors",
@@ -301,7 +301,7 @@ export function PostPageComment({id, ...props}) {
     return (
 <section className="PostPageComment" key={id} id={id}>
     <div className="PostPageProfilingContainer"> 
-        <div id="PostPageMainAvatar" style={{backgroundImage: (props.avatar != null) ? `url(/avatars/${props.avatar}/)`: "none"}}/>
+        <div id="PostPageMainAvatar" style={{backgroundImage: (props.avatar != null) ? `url(/flask/avatars/${props.avatar}/)`: "none"}}/>
         <div className="ProfilingOverlay"></div>
     </div> 
     <div className="here">{props.post_owner}</div>

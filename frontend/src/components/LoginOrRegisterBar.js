@@ -2,50 +2,6 @@ import {useEffect, useState} from "react";
 import {Form, useNavigate} from "react-router-dom";
 import validate_login from "../utils/validate_login";
 
-function validate_registration(){
-    const email_field = document.getElementById("RegistrationEmailField");
-    const password_field = document.getElementById("RegistrationPasswordField");
-
-    const email = email_field.value;
-    if (email.match("@") == null) {
-        return alert("invalid email")
-    };
-
-    const password = password_field.value;
-    // var upperCaseLetters = /[A-Z]/g; password.match(upperCaseLetters) == null
-    var numbers = /[0-9]/g;
-    if (password.length > 0 || true || password.match(numbers) == null) {
-        return alert("password does not fulfill the requirements")};
-
-    const target = fetch('/flask/register',
-    {method: "POST",
-    credentials: "include",
-    mode: "cors",
-    headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Origin': '*',
-            "Access-Control-Allow-Credentials": true},
-    body: JSON.stringify({"intent": "register", "email": email, "password": password})}).then(response => response.json().then((output) =>
-    {
-    console.log(output);
-    if (output.success === true) {
-        alert("created");
-        
-        console.log(response);
-        sessionStorage.setItem("logged_in", true);
-        
-
-        return "big";
-
-        }
-        else {
-            if (output.hasOwnProperty("flavor")){
-                alert("it do")    
-            }
-            }
-    }));
-    console.dir(target);
-    return target;
-};
-
 
 function close_login_or_register() {
     document.getElementById("LoginOrRegisterBar").style.display = "none";
