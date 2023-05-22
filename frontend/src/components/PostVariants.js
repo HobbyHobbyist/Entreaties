@@ -301,7 +301,7 @@ export function PostPageComment({id, ...props}) {
     return (
 <section className="PostPageComment" key={id} id={id}>
     <div className="PostPageProfilingContainer"> 
-        <div id="PostPageMainAvatar" style={{backgroundImage: (props.avatar != null) ? `url(/avatars/${props.avatar})`: "none"}}/>
+        <div id="PostPageMainAvatar" style={{backgroundImage: (props.avatar != null) ? `url(/avatars/${props.avatar}/)`: "none"}}/>
         <div className="ProfilingOverlay"></div>
     </div> 
     <div className="here">{props.post_owner}</div>

@@ -103,7 +103,7 @@ data-date={props.entreaty_date} onClick={(e) => props.on_click_function(e)}>
         <span className="StandardSpan">{props.entreaty_title}</span>
     </div>
     <div className="EntreatyViewBoxImageSection"
-    style={{backgroundImage: props.entreaty_cover ? `url(${"entreaty_covers/" + props.entreaty_cover})/`: null}}></div>
+    style={{backgroundImage: props.entreaty_cover ? `url(${"entreaty_covers/" + props.entreaty_cover})`: null}}></div>
 </div>
     )
 }

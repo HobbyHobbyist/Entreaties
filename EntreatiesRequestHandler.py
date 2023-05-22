@@ -11,6 +11,7 @@ import json
 
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 
 app.static_folder = os.path.join(os.getcwd(), "stored_images")
 
@@ -595,7 +596,7 @@ class PostGetter(Resource):
         user = request.cookies.get("user")
         if user is None:
             cursor.execute("""SELECT Profile_Name, Post_ID, Post_Title, Post_Content, Amount_Of_Comments, Thumbs_Up_Reactions,
-            Thumbs_Down_Reactions, Post_Date FROM POSTS 
+            Thumbs_Down_Reactions, Post_Date FROM Posts
             WHERE Profile_Name = %s 
             LIMIT 20 """, (profile_name,))
             posts = cursor.fetchall()
@@ -669,7 +670,7 @@ class TargetedPostGetter(Resource):
         user = request.cookies.get("user")
         if user is None:
             cursor.execute("""SELECT Profile_Name, Post_ID, Post_Title, Post_Content, Amount_Of_Comments, Thumbs_Up_Reactions,
-            Thumbs_Down_Reactions, Post_Date FROM POSTS 
+            Thumbs_Down_Reactions, Post_Date FROM Posts 
             WHERE Profile_Name = %s AND Post_ID = %s
             LIMIT 1 """, (profile_name, post_id))
             post = cursor.fetchall()[0]
@@ -987,4 +988,5 @@ api.add_resource(PersonalEntreatyAdmissionSetter, "/self/entreaty_admission_post
 
 api.add_resource(PersonalReactionHandler, "/self/reactions/<target>/")
 
-app.run(threaded=False)
+if __name__ == "__main__":
+    app.run(threaded=False)

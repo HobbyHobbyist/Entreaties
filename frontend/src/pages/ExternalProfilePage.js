@@ -76,7 +76,7 @@ function ExternalProfilePage(props){
 
 
         if (output["avatar"] != null) {
-            profile_avatar_box.style.backgroundImage = `url(/avatars/${output["avatar"]})/`;
+            profile_avatar_box.style.backgroundImage = `url(/avatars/${output["avatar"]}/)`;
         
         }
 
