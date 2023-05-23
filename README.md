@@ -7,4 +7,4 @@ Have MYSQL, MYSQL Connector, and a MYSQL user, then input that user's info into 
 
 Activate the environment and pip install the requirements.txt file in the entreaties' root folder, then run (assuming windows) "(python | python3 | venv/scripts/python) EntreatiesRequestHandler.py". Step 2: Create and start API is finished.
 
-Change directory to entreaties/frontend. (NPM | Yarn) (install | add) the package.json, then run "(NPM | Yarn) Start". Step 3: Create and start frontend is finished and you can ideally view the site with full functionality now.
+Change directory to entreaties/frontend. (NPM | Yarn) (install | add) the package.json, then run "(NPM | Yarn) Start". Step 3: Create and start frontend is finished. You can ideally view the site with full functionality now.
