@@ -2804,7 +2804,7 @@ html::-webkit-scrollbar {
     display: inline-block;
     margin: 1.25%;
     margin-bottom: 1.25%;
-    margin-top: none;
+    margin-top: 0%;
     width: 45%;
     height: 45%;
     background-color: grey;
