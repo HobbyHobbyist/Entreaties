@@ -1,1 +1,1 @@
-/home/ubuntu/entreaties/entreaties/bin/gunicorn --workers 2 --bind 0.0.0.0:5000 /home/ubuntu/entreaties/entreaties/wsgi:app
+/home/ubuntu/entreaties/venv/bin/gunicorn --workers 2 --bind 0.0.0.0:5000 /home/ubuntu/entreaties/venv/wsgi:app
