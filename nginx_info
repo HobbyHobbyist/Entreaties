@@ -1,0 +1,20 @@
+
+server {
+    listen 0.0.0.0:80;
+    server_name entreaties.space;
+    access_log /var/log/nginx/app.log;
+    root /var/www/build;
+    index index.html index.htm;
+    try_files $uri /index.html;
+
+    location / {
+        try_files $uri $uri/ = 404;
+    }
+
+    location /flask/ {
+        proxy_pass http://127.0.0.1:5000/flask/;
+   }
+}
+
+
+
