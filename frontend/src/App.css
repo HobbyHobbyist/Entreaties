@@ -4,6 +4,7 @@
     --saturationModifier: 5%;
     --lightnessBase: 30%;
     --lightnessModifer: 10%;
+    --standardFontColor: black;
     
     --primaryCol: hsl(var(--chosenHue), var(--saturationBase), var(--lightnessBase));
 
@@ -27,8 +28,9 @@
 
     --neutralCol: hsl(220, 17%, 13.5%);
     --optionGradient: linear-gradient(hsl(0, 0%, 55%), hsl(0, 0%, 45%));
+    --focusedGradient: linear-gradient(to bottom, hsl(0, 0%, 74%), hsl(0, 0%, 36%) 90%);
     --fullBoxShadow: inset .1vw .1vh black, inset -.1vw -.1vh black;
-
+    
     --primaryTextCol: hsl(0, 0%, 0%);
     --secondaryTextCol: hsl(0, 0%, 75%);
     
@@ -185,7 +187,7 @@ html::-webkit-scrollbar {
     width: 50%;
     height: 100%;
     background-image: var(--optionGradient);
-    box-shadow: inset 0 -.1vh black, inset 0 0 .25vh .5vh var(--secondaryCol);
+    box-shadow: var(--fullBoxShadow);
 }
 
 
@@ -209,7 +211,7 @@ html::-webkit-scrollbar {
     width: 50%;
     height: 100%;
     background-image: var(--optionGradient);
-    box-shadow: inset 0 -.1vh black, inset 0 0 .25vh .5vh var(--emphasizedPrimaryCol);
+    box-shadow: var(--fullBoxShadow);
 }
 
 #HamburgerNavigationAdditionalOptionsDropdown:hover .HamburgerNavigationOptionsContainer {
@@ -257,6 +259,79 @@ html::-webkit-scrollbar {
     display: none;
     height: 10vh;
     width: 90%;
+}
+
+
+#ContactInfoPopup {
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 50%;
+    background-color: hsl(0, 0%, 75%);
+    border-radius: 1vh;
+    box-shadow: var(--fullBoxShadow);
+    transform: translate(-50%, -50%);
+}
+
+
+
+#ContactInfoCloseButton {
+    position: relative;
+    left: 75%;
+    width: 25%;
+    height: 20%;
+    border-radius: 0 1vh 0 1vh;
+    background: var(--optionGradient);
+    box-shadow: var(--fullBoxShadow);
+    
+}
+
+.ContactInfoContactEntry {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 25%;
+    background-color: var(--emphasizedPrimaryCol);
+}
+
+.ContactInfoContactEntryIcon {
+    flex-basis: 20%;
+    height: 100%;
+    background-image: url("static/images/gmail_icon.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    box-shadow: -.1vw 0 black inset, .1vw 0 black inset;
+}
+
+.ContactInfoContactEntryTextSection {
+    position: relative;
+    width: 80%;
+    background-color: hsl(0, 0%, 85%);
+    box-shadow: -.1vw 0 black inset;
+}
+
+#JumpToContentContainer {
+    z-index: 100;
+    position: absolute;
+    top: 5%;
+    left: -25vw;
+    width: 25vw;
+    height: 90%;
+    background: var(--optionGradient);
+    box-shadow: var(--fullBoxShadow);
+    border-radius: 10vh;
+    transition: .35s;
+    
+}
+
+#JumpToContentContainer:focus {
+    left: 0%;
 }
 
 #RegisterPageRoot {
@@ -1250,6 +1325,10 @@ html::-webkit-scrollbar {
     box-shadow: var(--fullBoxShadow);
 }
 
+.PostAddReactionTooltip[data-revealed="true"] .PostAddReactionContainer {
+    display: flex;
+}
+
 .PostAddReactionTooltip:hover .PostAddReactionContainer {
     display: flex;
 }
@@ -1512,6 +1591,12 @@ html::-webkit-scrollbar {
     box-shadow: var(--fullBoxShadow);
     box-sizing: border-box;
     
+}
+
+.PostPageMainPost:focus {
+    outline-color: var(--emphasizedPrimaryCol);
+    border-image: linear-gradient(to bottom, hsl(0, 0%, 74%), 
+    hsl(0, 0%, 36%) 90%) 1;
 }
 
 #PostPageSubthreadsContainer {
@@ -2079,7 +2164,6 @@ html::-webkit-scrollbar {
 .SettingSection {
     width: 100%;
     height: 50%;
-    background-image: linear-gradient(90deg, var(--secondaryCol) 0 75%, rgb(0, 0, 31));
     box-shadow: inset 0 0 0 .5vh black;
 }
 
@@ -2088,6 +2172,7 @@ html::-webkit-scrollbar {
     flex-direction: row;
     gap: 5%;
     align-items: center;
+    height: 100%;
 
 }
 
@@ -2102,6 +2187,7 @@ html::-webkit-scrollbar {
 
 #ColorSettings .Slider {
     position: relative;
+    top: -35%;
     flex: 1;
 }
 
@@ -2344,6 +2430,10 @@ html::-webkit-scrollbar {
     top: 10vh;
     height: 82.5vh;
     
+}
+
+#EntreatiesContainer:focus {
+    height: 20vh;
 }
 
 
@@ -2804,7 +2894,7 @@ html::-webkit-scrollbar {
     display: inline-block;
     margin: 1.25%;
     margin-bottom: 1.25%;
-    margin-top: 0%;
+    margin-top: 1.25%;
     width: 45%;
     height: 45%;
     background-color: grey;
@@ -2816,8 +2906,13 @@ html::-webkit-scrollbar {
     outline-width: .5vh;
     outline-color: hsl(calc(var(--chosenHue) - 180), 27%, 46%);
     overflow: hidden;
-    box-sizing: border-box;
 
+}
+
+.EntreatySearchBox:focus {
+    outline-color: var(--emphasizedPrimaryCol);
+    border-image: linear-gradient(to bottom, hsl(0, 0%, 74%), 
+    hsl(0, 0%, 36%) 90%) 1;
 }
 
 .EntreatySearchBox[data-enlarged="true"] {
@@ -2839,12 +2934,13 @@ html::-webkit-scrollbar {
     transition: .35s;
 }
 
-.EntreatySearchBoxImageSection:hover {
+.EntreatySearchBoxImageSection:hover, .EntreatySearchBoxImageSection:focus {
     width: 100%;
     height: 100%;
 }
 
-.EntreatySearchBoxImageSection:hover ~.EntreatySearchBoxTitleSection {
+.EntreatySearchBoxImageSection:hover ~.EntreatySearchBoxTitleSection, 
+.EntreatySearchBoxImageSection:focus  ~.EntreatySearchBoxTitleSection {
     width: 0%;
     height: 0%;
     left: 100%;
@@ -2864,6 +2960,12 @@ html::-webkit-scrollbar {
     color: var(--secondaryTextCol);
     text-decoration: solid underline var(--emphasizedComplimentaryCol);
 
+}
+
+.EntreatySearchBoxTitleSection:focus {
+    background: var(--focusedGradient);
+    color: black;
+    text-decoration: solid underline black;
 }
 
 .EntreatySearchBoxTitleSection::-webkit-scrollbar {
@@ -2910,7 +3012,7 @@ html::-webkit-scrollbar {
     display: none;
 }
 
-.EntreatySearchBoxDescriptionSection:hover {
+.EntreatySearchBoxDescriptionSection:hover, .EntreatySearchBoxDescriptionSection:focus {
     height: 80%;
     cursor: grab;
 }

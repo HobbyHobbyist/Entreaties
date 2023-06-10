@@ -1,4 +1,5 @@
 import NavigationBar from "../components/NavigationBar.js";
+import EntreatiesPageMockup from "../components/EntreatiesPageMockup.js";
 
 import {useEffect, useState} from "react";
 import { Slider } from "@material-ui/core";
@@ -26,7 +27,7 @@ function SettingsPage(props){
     return(
 <>
 <NavigationBar/>
-<div style={{position: "absolute", backgroundColor: "grey", width: "100%", top: "7.5vh", height: "92.5vh",
+<div style={{position: "absolute", backgroundColor: "var(--neutralCol)", width: "100%", top: "7.5vh", height: "92.5vh",
 overflowY: "scroll", scrollbarWidth: "none"}}>
     <div className="SettingSection" id="ColorSettings">
         <div class="Slider" id="HueSlider">
@@ -72,9 +73,11 @@ overflowY: "scroll", scrollbarWidth: "none"}}>
         }}>
             <span className="StandardSpan" style={{pointerEvents: "none"}}>Default</span>
         </div>
+        <EntreatiesPageMockup></EntreatiesPageMockup>
     </div>
 
-    <div className="SettingSection"></div>
+    <div className="SettingSection">
+    </div>
 
 
 

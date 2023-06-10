@@ -375,7 +375,8 @@ function EntreatiesPage(props){
     };
 
      useEffect(() => {
-
+        document.target_content_using_first_child = true;
+        document.target_content = document.getElementById("EntreatiesImplantContainer");
         const test = document.getElementById("Test");
         const entreaties_filterer = document.getElementById("EntreatySearchFilter");
         const html = document.documentElement.scroll;
@@ -426,7 +427,7 @@ function EntreatiesPage(props){
 
     return(
     <div>
-    <NavigationBar/>
+    <NavigationBar jump_to_content={true}/>
         <div className="ScrollContainer">
         {logged_in == true ? 
             <section className="ScrollSection" id="EntreatyManagementSection" ref={CurrentEntreatiesRef}>

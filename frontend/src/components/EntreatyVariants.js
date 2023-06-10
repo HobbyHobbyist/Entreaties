@@ -1,3 +1,4 @@
+import accessibleClick from "../functions/accessibleClick";
 import html_parser from "../utils/html_parser";
 
 
@@ -12,6 +13,22 @@ function enlarge_entreaty(event) {
         parentEle.scrollIntoView();
     }
 };
+
+function accessible_enlarge_entreaty(event) {
+    let parentEle = event.currentTarget;
+    if (parentEle.dataset.enlarged != "true") {
+        parentEle.dataset.enlarged = "true";
+        parentEle.getElementsByClassName("EntreatySearchBoxTitleSection")[0].tabIndex = "0"
+        parentEle.getElementsByClassName("EntreatySearchBoxDescriptionSection")[0].tabIndex = "0"
+        parentEle.getElementsByClassName("EntreatySearchBoxName")[0].tabIndex = "0"
+        parentEle.getElementsByClassName("EntreatySearchBoxImageSection")[0].tabIndex = "0"
+        parentEle.scrollIntoView();
+        }
+    else {
+        parentEle.dataset.enlarged = "false";
+        parentEle.scrollIntoView();
+    }
+}
 
 function open_thread(thread_id, entreaty_id) {
     
@@ -40,7 +57,11 @@ function turning_cursor(e) {
 export function EntreatySearchBox({on_click_function, ...props}){
     let content = html_parser(JSON.parse(props.entreaty_content), props.entreaty_id);
     return (
-    <div className="EntreatySearchBox" key={props.entreaty_id}>
+    <div className="EntreatySearchBox" key={props.entreaty_id} tabIndex="0" onKeyDown={(e) => {
+        if (e.key == "Enter") {
+            accessible_enlarge_entreaty(e);
+        }
+    }}>
         <div className="EntreatySearchBoxImageSection" 
         style={{backgroundImage: props.entreaty_cover ? `url(${"/flask/entreaty_covers/" + props.entreaty_cover}/)`: null}}
         onClick={(event) => enlarge_entreaty(event)}></div>
@@ -52,13 +73,14 @@ export function EntreatySearchBox({on_click_function, ...props}){
         <div className="EntreatySearchBoxTitleSection" onClick={(e) => {
             on_click_function();
             turning_cursor(e);
-        }}>
+        }} onKeyDown={(e) => accessibleClick(e)}>
             <div className="StandardSpan" style={{color: "inherit"}}>
                 {props.entreaty_title}
             </div>
         </div>
         <div className="EntreatySearchBoxMetaInfo">
-            <span className="EntreatySearchBoxName" onClick={() => window.open(`/Profile/${props.entreaty_owner}`, "_blank")}>
+            <span className="EntreatySearchBoxName" onClick={() => window.open(`/Profile/${props.entreaty_owner}`, "_blank")}
+            onKeyDown={(e) => accessibleClick(e, true)}>
             {props.entreaty_owner}</span> {props.entreaty_date}
         </div>
     </div>

@@ -45,7 +45,7 @@ function App() {
       }
     }
   return (
-    <div className="App">
+    <div className="App" id="App">
     <AppContext.Provider value={{logged_in, change_logged_in_state}}>
     <Routes>
       <Route exact path="/" element={<LandingPage/>} />

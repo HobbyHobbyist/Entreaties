@@ -203,19 +203,22 @@ function ProfileSearchPage(props){
     const navigate = useNavigate();
     useEffect(() => {
         set_root(createRoot(document.getElementById("ProfileSearchBoxesContainer")));
+        delete document.target_content_using_first_child;
+        document.target_content = document.getElementById("ProfileNameSearchField");
         }, []);
     
         
     return(
 <div id="ProfileSearchPageRoot">       
-    <NavigationBar/>
+    <NavigationBar jump_to_content={true} />
     <div id="ProfileSearchOptionsContainer">
         <div id="ProfileNameSearch">
             <span className="StandardSpan" id="NameSearchText" style={{position: "absolute", left: "0%", width: "35%"}}>
                 Name: </span>
             <span className="StandardSpan" id="NameSearchSymbol" style={{position: "absolute", left: "0%", width: "25%"}}>
                 🔍</span>
-            <input type="text" id="ProfileNameSearchField" name="name" data-current_len={0} onChange={(e) => {
+            <input type="text" id="ProfileNameSearchField" name="name" tabIndex="0" data-current_len={0} 
+            onChange={(e) => {
                 const self = e.currentTarget;
                 let len = self.value.trim().length;
                 
@@ -251,7 +254,7 @@ function ProfileSearchPage(props){
             }} />
         </div>
 
-        <div id="ProfileInterestsSearch" data-active="false"> 
+        <div id="ProfileInterestsSearch" data-active="false" tabIndex="0"> 
             <span className="StandardSpan" style={{left: "0%", textAlign: "center", width: "100%"}}>Interests</span>
             <div id="DropdownContainer">
 

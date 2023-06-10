@@ -164,7 +164,7 @@ function PostPage(props){
                     }
                     
                         });
-
+                    document.target_content = document.getElementById("PostPageContent")
                     })
                  
     

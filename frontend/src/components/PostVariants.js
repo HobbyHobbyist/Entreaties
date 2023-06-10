@@ -6,6 +6,7 @@ import EmptyDocument from "../utils/documents/EmptyDocument";
 import FireGif from "../static/images/fire_gif.webp";
 import PoopGif from "../static/images/poop_gif.webp";
 import { Link } from "react-router-dom";
+import accessibleClick from "../functions/accessibleClick";
 
 
 
@@ -216,7 +217,7 @@ export function PostPageMainPost(props) {
 
 
     return (
-<div className="PostPageMainPost" id={props.post_id}>
+<div className="PostPageMainPost" id={props.post_id} tabIndex="0">
      <div className="PostBoxDateDiv">{props.post_date}</div>
      <div className="PostBoxTitleDiv">{props.post_title}</div>
      <div className="PostBoxCommentsDiv">{props.amount_of_comments} Comments</div>
@@ -229,19 +230,30 @@ export function PostPageMainPost(props) {
         {(props.thumbs_down > 0) ? <div className="PostReaction" style={{backgroundImage: `url(${PoopGif})`}} 
         data-removal_name="thumbs_down"></div>
         : null}
-        <div className="PostAddReactionTooltip">
+        <div className="PostAddReactionTooltip" tabIndex="0" onKeyDown={(e) => {
+            if (e.key == "Enter") {
+                if (e.currentTarget.dataset.revealed === "true") {
+                    delete e.currentTarget.dataset.revealed
+                }
+                else {
+                    e.currentTarget.dataset.revealed = "true";
+                }
+            }
+        }}>
             <span className="StandardSpan">
                 Add Reaction
             </span>
             <div className="PostAddReactionContainer">
 
                 <div className={`PostReaction ThumbsUp`} style={{backgroundImage: `url(${FireGif})`}} 
+                tabIndex="0" onKeyDown={(e) => accessibleClick(e, true)}
                 onClick={(e) => {
                     e.stopPropagation();
                     react_to(props.post_id, "thumbs_up", FireGif, "post");
                     }}></div>
 
                 <div className={`PostReaction ThumbsDown`} style={{backgroundImage: `url(${PoopGif})`}}
+                tabIndex="0" onKeyDown={(e) => accessibleClick(e, true)}
                 onClick={(e) => {
                     e.stopPropagation();
                     react_to(props.post_id, "thumbs_down", PoopGif, "post");
